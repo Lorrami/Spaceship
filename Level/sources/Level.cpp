@@ -4,7 +4,7 @@
 
 Level::Level()
 {
-	m_DrawableObjects.push_back(new Turret());
+	m_DrawableObjects.push_back(new Spaceship());
 }
 
 void Level::UpdateGameState()

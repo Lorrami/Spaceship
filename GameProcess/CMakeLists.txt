@@ -1,7 +1,7 @@
 set (CMAKE_CXX_STANDARD 11)
 
-add_library (GameProcess STATIC "./sources/Turret.cpp"
-								"./sources/Bullet.cpp"
+add_library (GameProcess STATIC "sources/Spaceship.cpp"
+								"sources/Bullet.cpp"
 								)
 
 target_include_directories (GameProcess PUBLIC "./include")
