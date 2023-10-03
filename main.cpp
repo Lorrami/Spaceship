@@ -2,8 +2,7 @@
 
 int main()
 {
-	Application App = Application();
-	App.Start();
+	Application::Get().Start();
 
 	return 1;
 }

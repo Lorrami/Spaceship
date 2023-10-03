@@ -1,5 +1,7 @@
 #include "Application.h"
 
+Application* Application::s_Instance = nullptr;
+
 void Application::HandleEvents()
 {
     sf::Event event;
@@ -29,6 +31,13 @@ void Application::Run()
 void Application::InitWindow()
 {
     m_Window.create(sf::VideoMode(sf::Vector2u(m_WindowLength, m_WindowHeight)), "Zuma", sf::Style::Close);
+}
+
+Application& Application::Get()
+{
+    if (s_Instance == nullptr)
+        s_Instance = new Application();
+    return *s_Instance;
 }
 
 void Application::Start()

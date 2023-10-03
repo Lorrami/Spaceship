@@ -5,7 +5,10 @@
 class Application
 {
 public:
+	static Application* s_Instance;
+
 	void Start();
+	static Application& Get();
 
 private:
 	const unsigned int m_WindowLength = 1080;
