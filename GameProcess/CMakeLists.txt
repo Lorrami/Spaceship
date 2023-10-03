@@ -5,4 +5,4 @@ add_library (GameProcess STATIC "./sources/Turret.cpp"
 								)
 
 target_include_directories (GameProcess PUBLIC "./include")
-target_link_libraries (GameProcess sfml-graphics sfml-audio sfml-window)
+target_link_libraries (GameProcess Application sfml-graphics sfml-audio sfml-window)

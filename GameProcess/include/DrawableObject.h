@@ -5,6 +5,6 @@
 class DrawableObject : public sf::RectangleShape
 {
 public:
-	virtual void Update(const sf::Vector2i& MousePosition) = 0;
+	virtual void Update() = 0;
 
 };

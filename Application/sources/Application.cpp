@@ -2,6 +2,35 @@
 
 Application* Application::s_Instance = nullptr;
 
+void Application::Start()
+{
+    InitWindow();
+    Run();
+}
+
+void Application::InitWindow()
+{
+    m_Window.create(sf::VideoMode(sf::Vector2u(m_WindowLength, m_WindowHeight)), "Zuma", sf::Style::Close);
+}
+
+void Application::Run()
+{
+    sf::Clock clock;
+    while (m_Window.isOpen())
+    {
+        m_MouseLocation = sf::Mouse::getPosition(m_Window);
+        m_DeltaTime = clock.restart();
+
+        HandleEvents();
+
+        m_Window.clear(sf::Color::Black);
+        m_Level.Draw(&m_Window);
+        m_Window.display();
+
+        m_Level.Update();
+    }
+}
+
 void Application::HandleEvents()
 {
     sf::Event event;
@@ -12,36 +41,9 @@ void Application::HandleEvents()
     }
 }
 
-void Application::Run()
-{
-    sf::Clock clock;
-	while (m_Window.isOpen())
-	{
-        sf::Time deltaTime = clock.restart();
-        HandleEvents();
-        
-        m_Window.clear(sf::Color::Black);
-        m_Level.Draw(&m_Window);
-        m_Window.display();
-
-        m_Level.Update(deltaTime);
-	}
-}
-
-void Application::InitWindow()
-{
-    m_Window.create(sf::VideoMode(sf::Vector2u(m_WindowLength, m_WindowHeight)), "Zuma", sf::Style::Close);
-}
-
 Application& Application::Get()
 {
     if (s_Instance == nullptr)
         s_Instance = new Application();
     return *s_Instance;
-}
-
-void Application::Start()
-{
-    InitWindow();
-    Run();
 }

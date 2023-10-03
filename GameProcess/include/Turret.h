@@ -6,10 +6,16 @@ class Turret : public DrawableObject
 {
 public:
 	Turret();
-	virtual void Update(const sf::Vector2i& MousePosition) override;
-	void UpdateRotation(const sf::Vector2i& MousePosition);
+	virtual void Update() override;
+	void UpdateRotation();
 
 private:
-	const sf::Vector2f m_BodySize{100.f, 100.f};
+	void OnMousePressed();
+	void ShootProjectile();
+
+	sf::Time m_Timer{};
+	float m_ShootingDelay = 0.3f;
+	const sf::Vector2f m_StartPosition{ 540.f, 360.f };
+	const sf::Vector2f m_BodySize{ 100.f, 100.f };
 
 };

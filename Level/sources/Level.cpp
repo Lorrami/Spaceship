@@ -2,27 +2,9 @@
 
 #include <iostream>
 
-void Level::SpawnProjectile()
+Level::Level()
 {
-	m_DrawableObjects.push_back(new Bullet());
-}
-
-void Level::OnMousePressed()
-{
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		m_Timer += m_DeltaTime;
-		if (m_Timer.asSeconds() >= m_ShootingDelay)
-		{
-			SpawnProjectile();
-			m_Timer = m_Timer.Zero;
-		}
-	}
-}
-
-void Level::OnGameInProgress()
-{
-	OnMousePressed();
+	m_DrawableObjects.push_back(new Turret());
 }
 
 void Level::UpdateGameState()
@@ -44,47 +26,46 @@ void Level::UpdateGameState()
 	}
 }
 
-void Level::Update(sf::Time DeltaTime)
+void Level::OnGameInProgress()
 {
-	m_DeltaTime = DeltaTime;
+	// on game on progress
+}
 
+void Level::Update()
+{
 	UpdateGameState();
 
 	for (auto* ObjectToUpdate : m_DrawableObjects)
 	{
-		ObjectToUpdate->Update(sf::Mouse::getPosition(*m_CurrentWindow));
+		ObjectToUpdate->Update();
 	}
 
 	m_DrawableObjects.insert(m_DrawableObjects.end(), m_PendingAddObjects.begin(), m_PendingAddObjects.end());
 	m_PendingAddObjects.clear();
 
-	for (DrawableObject* Object : m_PendingRemoveObjects)
+	for (DrawableObject* ObjectToRemove: m_PendingRemoveObjects)
 	{
-		std::iterator smth = remove(m_DrawableObjects.begin, m_DrawableObjects.end, Object);
+		m_DrawableObjects.erase(std::remove(m_DrawableObjects.begin(), m_DrawableObjects.end(), ObjectToRemove), m_DrawableObjects.end());
 	}
 	m_PendingRemoveObjects.clear();
 }
 
-void Level::Draw(sf::RenderWindow* WindowToDrawAt)
+void Level::Draw(sf::RenderWindow* windowToDrawAt)
 {
-	m_CurrentWindow = WindowToDrawAt;
+	m_CurrentWindow = windowToDrawAt;
 	for (auto* ObjectToDraw : m_DrawableObjects)
 	{
 		m_CurrentWindow->draw(*ObjectToDraw);
 	}
 }
 
-void Level::Remove(DrawableObject* ObjectToRemove)
+void Level::Add(DrawableObject* objectToAdd)
 {
-	m_PendingRemoveObjects.push_back(ObjectToRemove);
+	m_PendingAddObjects.push_back(objectToAdd);
 }
 
-void Level::Add(DrawableObject* ObjectToAdd)
+void Level::Remove(DrawableObject* objectToRemove)
 {
-	m_PendingAddObjects.push_back(ObjectToAdd);
+	m_PendingRemoveObjects.push_back(objectToRemove);
 }
 
-Level::Level()
-{
-	m_DrawableObjects.push_back(new Turret());
-}
