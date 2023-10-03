@@ -2,17 +2,17 @@
 
 #include <iostream>
 
-void Turret::Shoot()
-{
-	m_Bullets.emplace_back(Bullet());
-}
-
 void Turret::UpdateRotation(const sf::Vector2i& MousePosition)
 {
 	float dx = -MousePosition.x + getPosition().x;
 	float dy = -MousePosition.y + getPosition().y;
 	sf::Angle rotation = sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f);
 	setRotation(rotation);
+}
+
+void Turret::Update(const sf::Vector2i& MousePosition)
+{
+	UpdateRotation(MousePosition);
 }
 
 Turret::Turret()

@@ -1,5 +1,12 @@
 #include "Bullet.h"
 
+#include <iostream>
+
+void Bullet::Update(const sf::Vector2i& MousePosition)
+{
+	std::cout << "Update bullet" << std::endl;
+}
+
 Bullet::Bullet()
 {
 	setSize(sf::Vector2f(20.f, 20.f));

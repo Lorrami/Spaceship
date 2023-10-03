@@ -1,10 +1,12 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include "DrawableObject.h"
 
-class Bullet : public sf::RectangleShape
+class Bullet : public DrawableObject
 {
 public:
 	Bullet();
+
+	virtual void Update(const sf::Vector2i& MousePosition) override;
 
 };
