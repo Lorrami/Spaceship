@@ -68,35 +68,13 @@ void Level::SpawnAsteroids()
 {
 	if (m_TimeForAsteroids <= 0)
 	{
-		//////
-		//TODO: random spawn for asteroids
-		//////
-		//sf::Vector2f location((float)(std::rand() % 1221 - 80), (float)(std::rand() % 66 - 65));
-		sf::Vector2f location(500.f, (float)(std::rand() % 66 - 65) + 100.f);
-		sf::Angle rotation = GetRotationForAsteroid();
-		sf::Vector2f direction = GetDirectionForAsteroid(location);
-		Add(new Asteroid(400.f, 60.f, location, rotation, direction));
-		std::cout << "spawned" << std::endl;
+		Add(new Asteroid(400.f, 60.f));
 		m_TimeForAsteroids = static_cast<float>(std::rand() % 191 + 10) / 100;
 	}
 	else
 	{
 		m_TimeForAsteroids -= Application::Get().GetDeltaTime().asSeconds();
 	}
-}
-
-sf::Angle& Level::GetRotationForAsteroid()
-{
-	sf::Vector2i mouseLocation = Application::Get().GetMouseRelativeLocation();
-	float dx = -mouseLocation.x + m_Player->getPosition().x;
-	float dy = -mouseLocation.y + m_Player->getPosition().y;
-	return sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f);
-}
-
-sf::Vector2f& Level::GetDirectionForAsteroid(const sf::Vector2f& location)
-{
-	sf::Vector2f normal = (m_Player->getPosition() - location).normalized();
-	return normal;
 }
 
 void Level::ZonePassed()

@@ -43,9 +43,6 @@ private:
 	void OnLoose();
 	void ClearLevel();
 
-	sf::Vector2f& GetDirectionForAsteroid(const sf::Vector2f& location);
-	sf::Angle& GetRotationForAsteroid();
-
 public:
 	void Add(DrawableObject* objectToAdd);
 	void Remove(DrawableObject* objectToRemove);

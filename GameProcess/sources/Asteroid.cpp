@@ -3,14 +3,33 @@
 #include "Application.h"
 #include "Bullet.h"
 
-Asteroid::Asteroid(const float speed, const float bodySize, const sf::Vector2f& position, const sf::Angle& rotation, const sf::Vector2f direction)
+Asteroid::Asteroid(const float speed, const float bodySize)
 {
 	m_Speed = speed;
-	m_Direction = direction;
-	setPosition(position);
-	setRotation(rotation);
+	m_Direction = CalculateDirection(getPosition());
+
 	setOrigin(sf::Vector2f(bodySize / 2, bodySize / 2));
 	setSize(sf::Vector2f(bodySize, bodySize));
+	setRotation(CalculateRotation());
+
+	//////
+	//TODO: random spawn for asteroids
+	//////
+}
+
+sf::Angle& Asteroid::CalculateRotation()
+{
+	DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
+	float dx = -player->getPosition().x + getPosition().x;
+	float dy = -player->getPosition().y + getPosition().y;
+	return sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f);
+}
+
+sf::Vector2f& Asteroid::CalculateDirection(const sf::Vector2f& location)
+{
+	DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
+	sf::Vector2f normal = (player->getPosition() - location).normalized();
+	return normal;
 }
 
 void Asteroid::Update()
