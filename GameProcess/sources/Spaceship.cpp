@@ -11,6 +11,8 @@ Spaceship::Spaceship()
 	setOrigin(sf::Vector2f(m_BodySize.x / 2, m_BodySize.y / 2));
 	setSize(m_BodySize);
 	setPosition(m_StartPosition);
+
+	HealthComponent.SetMaxHealth(100);
 }
 
 void Spaceship::Update()
@@ -22,6 +24,7 @@ void Spaceship::Update()
 
 void Spaceship::OnKeyboardPressed()
 {
+	std::cout << HealthComponent.IsAlive() << std::endl;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		Move(sf::Vector2f(0.f, -1.f));
@@ -37,6 +40,10 @@ void Spaceship::OnKeyboardPressed()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		Move(sf::Vector2f(1.f, 0.f));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+	{
+		HealthComponent.TakeDamage(20);
 	}
 }
 

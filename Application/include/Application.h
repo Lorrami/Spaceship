@@ -10,10 +10,10 @@ public:
 	void Start();
 	static Application& Get();
 
-	sf::Time GetDeltaTime() { return m_DeltaTime; }
+	sf::Time GetDeltaTime() const { return m_DeltaTime; }
 	Level& GetCurrentLevel() { return m_Level; }
-	sf::Vector2i GetMouseRelativeLocation() { return m_MouseLocation; }
-	sf::Vector2i GetWindowSize() { return sf::Vector2i(m_WindowLength, m_WindowHeight); }
+	sf::Vector2i GetMouseRelativeLocation() const { return m_MouseLocation; }
+	sf::Vector2i GetWindowSize() const { return sf::Vector2i(m_WindowLength, m_WindowHeight); }
 
 private:
 	const unsigned int m_WindowLength = 1080;
