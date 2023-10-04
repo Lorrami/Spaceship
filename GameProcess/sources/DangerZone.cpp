@@ -22,15 +22,16 @@ void DangerZone::Update()
 
 void DangerZone::CheckCollisionWithPlayer()
 {
+	Level currentLevel = Application::Get().GetCurrentLevel();
+
 	if (getGlobalBounds().contains(Application::Get().GetCurrentLevel().GetPlayer()->getPosition()))
 	{
-		//TODO: say to level to make asteroids more complicated
+		currentLevel.SetPlayerStateInDangerZone(true);
 		std::cout << m_CurrentTime << std::endl;
 
 		m_CurrentTime -= Application::Get().GetDeltaTime().asSeconds();
 		if (m_CurrentTime <= 0.f)
 		{
-			//TODO: say to level to add points to player
 			Application::Get().GetCurrentLevel().ZonePassed();
 			Application::Get().GetCurrentLevel().Remove(this);
 			return;
@@ -38,7 +39,7 @@ void DangerZone::CheckCollisionWithPlayer()
 	}
 	else
 	{
-		//TODO: say to level to make asteroids more easy
+		currentLevel.SetPlayerStateInDangerZone(false);
 		m_CurrentTime = m_ZoneTime;
 	}
 }

@@ -25,7 +25,6 @@ private:
 
 	const sf::Vector2i m_AsteroidSpeedRange{ 300, 800 };
 	const sf::Vector2i m_AsteroidSizeRange{ 20, 60 };
-	const sf::Vector2i m_AsteroidPositionRangeX{ 0, 60 };
 	
 	Spaceship* m_Player{};
 
