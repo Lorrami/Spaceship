@@ -24,27 +24,10 @@ void Bullet::Update()
 {
 	if (IsOnScreen())
 	{
-		Move(Application::Get().GetDeltaTime());
+		Move(Application::Get().GetDeltaTime(), m_Direction, m_Speed);
 	}
 	else
 	{
 		Application::Get().GetCurrentLevel().Remove(this);
 	}
-}
-
-bool Bullet::IsOnScreen()
-{
-	sf::Vector2i windowSize = Application::Get().GetWindowSize();
-	if (getPosition().x > -m_BodySize.x / 2 &&
-		getPosition().x < windowSize.x + m_BodySize.x / 2 &&
-		getPosition().y > -m_BodySize.y / 2 &&
-		getPosition().y < windowSize.y + m_BodySize.y / 2)
-		return true;
-	return false;
-}
-
-void Bullet::Move(const sf::Time deltaTime)
-{
-	sf::Vector2f prevLocation = getPosition();
-	setPosition(sf::Vector2f(prevLocation.x + m_Direction.x * m_Speed * deltaTime.asSeconds(), prevLocation.y + m_Direction.y * m_Speed * deltaTime.asSeconds()));
 }

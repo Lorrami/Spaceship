@@ -1,8 +1,8 @@
 #pragma once
 
-#include "DrawableObject.h"
+#include "MovableObject.h"
 
-class Bullet : public DrawableObject
+class Bullet : public MovableObject
 {
 public:
 	Bullet(const sf::Vector2f startLocation, const sf::Vector2f startDirection);
@@ -14,7 +14,5 @@ private:
 	sf::Vector2f m_Direction{};
 
 	sf::Color RandomizeColor();
-	bool IsOnScreen();
-	void Move(const sf::Time deltaTime);
 
 };

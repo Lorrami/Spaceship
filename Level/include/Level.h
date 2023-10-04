@@ -2,6 +2,7 @@
 
 #include "Spaceship.h"
 #include "DangerZone.h"
+#include "Asteroid.h"
 
 #include <vector>
 
@@ -32,6 +33,7 @@ private:
 	void OnGameStarted();
 	void SpawnPlayer();
 	void SpawnDangerZones();
+	void SpawnAsteroids();
 	void OnGameInMainMenu();
 	void OnWin();
 	void OnLoose();

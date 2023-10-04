@@ -53,9 +53,7 @@ void Level::SpawnDangerZones()
 
 void Level::OnGameInProgress()
 {
-	//////
-	//TODO: spawn asteroids
-	//////
+	SpawnAsteroids();
 	if (!m_Player->PlayerHealthComponent.IsAlive())
 	{
 		m_CurrentGameState = GameState::Loose;
@@ -68,10 +66,17 @@ void Level::OnGameInProgress()
 	}
 }
 
+void Level::SpawnAsteroids()
+{
+	//////
+	//TODO: spawn asteroids
+	//////
+	std::cout << "Asteroid!" << std::endl;
+}
+
 void Level::ZonePassed()
 {
 	m_ZonesCount--;
-	m_Player->PlayerScoreComponent.AddScore(m_PointsPerZone);
 }
 
 void Level::OnWin()
