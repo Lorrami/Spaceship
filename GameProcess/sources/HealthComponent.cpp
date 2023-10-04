@@ -6,12 +6,12 @@ void HealthComponent::SetMaxHealth(const int maxHealth)
 	m_CurrentHealth = m_MaxHealth;
 }
 
-int HealthComponent::GetMaxHealth()
+int HealthComponent::GetMaxHealth() const
 {
 	return m_MaxHealth;
 }
 
-bool HealthComponent::IsAlive()
+bool HealthComponent::IsAlive() const
 {
 	return m_CurrentHealth > 0;
 }

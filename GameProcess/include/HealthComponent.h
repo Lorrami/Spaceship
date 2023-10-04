@@ -4,9 +4,9 @@ class HealthComponent
 {
 public:
 	void SetMaxHealth(const int maxHealth);
-	int GetMaxHealth();
+	int GetMaxHealth() const;
 
-	bool IsAlive();
+	bool IsAlive() const;
 
 	void TakeDamage(const int damage);
 

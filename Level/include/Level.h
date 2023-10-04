@@ -19,6 +19,7 @@ private:
 	sf::RenderWindow* m_CurrentWindow{};
 	GameState m_CurrentGameState = GameState::MainMenu;
 	int m_ZonesCount = 3;
+	int m_PointsPerZone = 100;
 	bool m_IsPlayerInDangerZone = false;
 	
 	Spaceship* m_Player{};
@@ -34,6 +35,7 @@ private:
 	void OnGameInMainMenu();
 	void OnWin();
 	void OnLoose();
+	void ClearLevel();
 
 public:
 	Level();

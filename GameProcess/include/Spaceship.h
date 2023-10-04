@@ -2,6 +2,7 @@
 
 #include "DrawableObject.h"
 #include "HealthComponent.h"
+#include "ScoreComponent.h"
 
 class Spaceship : public DrawableObject
 {
@@ -9,7 +10,8 @@ public:
 	Spaceship();
 	virtual void Update() override;
 	void UpdateRotation();
-	HealthComponent HealthComponent{};
+	HealthComponent PlayerHealthComponent{};
+	ScoreComponent PlayerScoreComponent{};
 
 private:
 	void OnKeyboardPressed();

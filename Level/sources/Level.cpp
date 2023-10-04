@@ -53,8 +53,10 @@ void Level::SpawnDangerZones()
 
 void Level::OnGameInProgress()
 {
+	//////
 	//TODO: spawn asteroids
-	if (!m_Player->HealthComponent.IsAlive())
+	//////
+	if (!m_Player->PlayerHealthComponent.IsAlive())
 	{
 		m_CurrentGameState = GameState::Loose;
 		return;
@@ -69,18 +71,25 @@ void Level::OnGameInProgress()
 void Level::ZonePassed()
 {
 	m_ZonesCount--;
-	//TODO: add player score
+	m_Player->PlayerScoreComponent.AddScore(m_PointsPerZone);
 }
 
 void Level::OnWin()
 {
 	std::cout << "Win\n";
+
+	ClearLevel();
 }
 
 void Level::OnLoose()
 {
 	std::cout << "Loose\n";
 	
+	ClearLevel();
+}
+
+void Level::ClearLevel()
+{
 	for (auto DrawableObject : m_DrawableObjects)
 	{
 		Remove(DrawableObject);

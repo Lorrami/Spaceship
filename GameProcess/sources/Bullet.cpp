@@ -2,7 +2,6 @@
 
 #include "Application.h"
 
-#include <iostream>
 #include <cmath>
 
 Bullet::Bullet(const sf::Vector2f startLocation, const sf::Vector2f startDirection)
