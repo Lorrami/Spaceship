@@ -1,3 +1,5 @@
+#include "Level.h"
+#include "Level.h"
 #include "Level.h"@
 
 #include "Application.h"
@@ -52,14 +54,20 @@ void Level::SpawnDangerZones()
 void Level::OnGameInProgress()
 {
 	SpawnAsteroids();
-	if (!dynamic_cast<Spaceship*>(m_Player)->PlayerHealthComponent.IsAlive())
-	{
-		m_CurrentGameState = GameState::Loose;
-		return;
-	}
+	CheckWinLooseConditions();
+}
+
+void Level::CheckWinLooseConditions()
+{
 	if (m_ZonesCount <= 0)
 	{
 		m_CurrentGameState = GameState::Win;
+		return;
+	}
+
+	if (!dynamic_cast<Spaceship*>(m_Player)->PlayerHealthComponent.IsAlive())
+	{
+		m_CurrentGameState = GameState::Loose;
 		return;
 	}
 }
@@ -68,14 +76,34 @@ void Level::SpawnAsteroids()
 {
 	if (m_TimeForAsteroids <= 0)
 	{
+		AdjustAsteroidsParameters();
+
 		float newSpeed = (float)(std::rand() % (m_AsteroidSpeedRange.y - m_AsteroidSpeedRange.x + 1) + m_AsteroidSpeedRange.x);
 		float newSize = (float)(std::rand() % (m_AsteroidSizeRange.y - m_AsteroidSizeRange.x + 1) + m_AsteroidSizeRange.x);
+
 		Add(new Asteroid(newSpeed, newSize));
+
 		m_TimeForAsteroids = static_cast<float>(std::rand() % 191 + 10) / 100;
 	}
 	else
 	{
 		m_TimeForAsteroids -= Application::Get().GetDeltaTime().asSeconds();
+	}
+}
+
+void Level::AdjustAsteroidsParameters()
+{
+	if (m_IsPlayerInDangerZone)
+	{
+		//////
+		//TODO: make asteroids speed and direction harder
+		//////
+	}
+	else
+	{
+		//////
+		//TODO: make asteroids speed and direction easier
+		//////
 	}
 }
 

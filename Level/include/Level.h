@@ -33,10 +33,12 @@ private:
 	std::vector<DrawableObject*> m_PendingRemoveObjects{};
 
 	void OnGameInProgress();
+	void CheckWinLooseConditions();
 	void OnGameStarted();
 	void SpawnPlayer();
 	void SpawnDangerZones();
 	void SpawnAsteroids();
+	void AdjustAsteroidsParameters();
 	void OnGameInMainMenu();
 	void OnWin();
 	void OnLoose();
