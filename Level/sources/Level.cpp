@@ -4,7 +4,6 @@
 
 Level::Level()
 {
-	m_DrawableObjects.push_back(new Spaceship());
 }
 
 void Level::UpdateGameState()
@@ -12,23 +11,89 @@ void Level::UpdateGameState()
 	switch (m_CurrentGameState)
 	{
 	case GameState::MainMenu:
-		// show main menu
+		OnGameInMainMenu();
 		break;
 	case GameState::InProgress:
 		OnGameInProgress();
 		break;
 	case GameState::Win:
-		// show win screen
+		OnWin();
 		break;
 	case GameState::Loose:
-		// show loose screen
+		OnLoose();
 		break;
 	}
 }
 
+void Level::OnGameInMainMenu()
+{
+	// button start pressed =>
+	OnGameStarted();
+}
+
+void Level::OnGameStarted()
+{
+	SpawnDangerZones();
+	SpawnPlayer();
+	m_CurrentGameState = GameState::InProgress;
+}
+
+void Level::SpawnPlayer()
+{
+	m_Player = new Spaceship();
+	m_DrawableObjects.push_back(m_Player);
+}
+
+void Level::SpawnDangerZones()
+{
+	m_PendingAddObjects.push_back(new DangerZone(10.f, 150.f, sf::Vector2f(400.f, 50.f), sf::Color::Red));
+	m_PendingAddObjects.push_back(new DangerZone(15.f, 200.f, sf::Vector2f(100.f, 300.f), sf::Color::Yellow));
+	m_PendingAddObjects.push_back(new DangerZone(20.f, 300.f, sf::Vector2f(750.f, 400.f), sf::Color::Green));
+}
+
 void Level::OnGameInProgress()
 {
-	// on game on progress
+	//////
+	//TODO: spawn asteroids
+	//////
+	if (!m_Player->PlayerHealthComponent.IsAlive())
+	{
+		m_CurrentGameState = GameState::Loose;
+		return;
+	}
+	if (m_ZonesCount <= 0)
+	{
+		m_CurrentGameState = GameState::Win;
+		return;
+	}
+}
+
+void Level::ZonePassed()
+{
+	m_ZonesCount--;
+	m_Player->PlayerScoreComponent.AddScore(m_PointsPerZone);
+}
+
+void Level::OnWin()
+{
+	std::cout << "Win\n";
+
+	ClearLevel();
+}
+
+void Level::OnLoose()
+{
+	std::cout << "Loose\n";
+	
+	ClearLevel();
+}
+
+void Level::ClearLevel()
+{
+	for (auto DrawableObject : m_DrawableObjects)
+	{
+		Remove(DrawableObject);
+	}
 }
 
 void Level::Update()

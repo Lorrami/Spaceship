@@ -11,6 +11,8 @@ Spaceship::Spaceship()
 	setOrigin(sf::Vector2f(m_BodySize.x / 2, m_BodySize.y / 2));
 	setSize(m_BodySize);
 	setPosition(m_StartPosition);
+
+	PlayerHealthComponent.SetMaxHealth(100);
 }
 
 void Spaceship::Update()
@@ -18,6 +20,7 @@ void Spaceship::Update()
 	OnMousePressed();
 	OnKeyboardPressed();
 	UpdateRotation();
+	std::cout << PlayerScoreComponent.GetScore() << std::endl;
 }
 
 void Spaceship::OnKeyboardPressed()
