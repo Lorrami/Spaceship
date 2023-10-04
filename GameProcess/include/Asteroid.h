@@ -16,6 +16,7 @@ private:
 
 	sf::Vector2f& CalculateDirection(const sf::Vector2f& location);
 	sf::Angle& CalculateRotation();
+	sf::Vector2f& CalculatePosition();
 
 	void CheckBulletCollision();
 	void CheckPlayerCollision();

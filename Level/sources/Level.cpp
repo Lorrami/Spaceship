@@ -83,7 +83,7 @@ void Level::SpawnAsteroids()
 
 		Add(new Asteroid(newSpeed, newSize));
 
-		m_TimeForAsteroids = static_cast<float>(std::rand() % 191 + 10) / 100;
+		m_TimeForAsteroids = static_cast<float>(std::rand() % 151 + 10) / 100;
 	}
 	else
 	{

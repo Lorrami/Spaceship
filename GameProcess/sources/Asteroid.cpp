@@ -7,15 +7,13 @@
 
 Asteroid::Asteroid(const float speed, const float bodySize)
 {
-	m_Speed = speed;
-	m_Direction = CalculateDirection(getPosition());
-
+	setPosition(CalculatePosition());
 	setOrigin(sf::Vector2f(bodySize / 2, bodySize / 2));
 	setSize(sf::Vector2f(bodySize, bodySize));
 	setRotation(CalculateRotation());
-	//////
-	//TODO: random spawn location for asteroids
-	//////
+
+	m_Speed = speed;
+	m_Direction = CalculateDirection(getPosition());
 }
 
 sf::Angle& Asteroid::CalculateRotation()
@@ -31,6 +29,29 @@ sf::Vector2f& Asteroid::CalculateDirection(const sf::Vector2f& location)
 	DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
 	sf::Vector2f normal = (player->getPosition() - location).normalized();
 	return normal;
+}
+
+sf::Vector2f& Asteroid::CalculatePosition()
+{
+	//////
+	//TODO: random spawn location for asteroids
+	//////
+	float targetX{}, targetY{};
+
+	int choiceSide = std::rand() % 2;
+	if (choiceSide == 0)
+	{
+		std::cout << "Spawning on X side" << std::endl;
+		float minX = getSize().x / 2;
+		float maxX = Application::Get().GetWindowSize().x - getSize().x / 2;
+
+	}
+	else
+	{
+		std::cout << "Spawning on Y side" << std::endl;
+	}
+
+	return sf::Vector2f(targetX, targetY);
 }
 
 void Asteroid::Update()
