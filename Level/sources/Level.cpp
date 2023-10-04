@@ -1,10 +1,8 @@
-#include "Level.h"
+#include "Level.h"@
 
+#include "Application.h"
+#include "Asteroid.h"
 #include <iostream>
-
-Level::Level()
-{
-}
 
 void Level::UpdateGameState()
 {
@@ -54,7 +52,7 @@ void Level::SpawnDangerZones()
 void Level::OnGameInProgress()
 {
 	SpawnAsteroids();
-	if (!m_Player->PlayerHealthComponent.IsAlive())
+	if (!dynamic_cast<Spaceship*>(m_Player)->PlayerHealthComponent.IsAlive())
 	{
 		m_CurrentGameState = GameState::Loose;
 		return;
@@ -68,15 +66,37 @@ void Level::OnGameInProgress()
 
 void Level::SpawnAsteroids()
 {
-	//////
-	//TODO: spawn asteroids
-	//////
-	std::cout << "Asteroid!" << std::endl;
+	if (m_TimeForAsteroids <= 0)
+	{
+		//////
+		//TODO: random spawn for asteroids
+		//////
+		Add(new Asteroid(400.f, 40.f, sf::Vector2f(540.f, 0.f), sf::Vector2f(0.f, 1.f)));
+		m_TimeForAsteroids = static_cast<float>(std::rand() % 191 + 10) / 100;
+	}
+	else
+	{
+		m_TimeForAsteroids -= Application::Get().GetDeltaTime().asSeconds();
+	}
 }
 
 void Level::ZonePassed()
 {
 	m_ZonesCount--;
+}
+
+void Level::OnDrawableObjectHit(const float damage, DrawableObject* hitObject, DrawableObject* hitCauser)
+{
+	Remove(hitCauser);
+	if (dynamic_cast<Spaceship*>(hitObject))
+	{
+		m_Player->PlayerHealthComponent.TakeDamage(damage);
+	}
+	else if (Asteroid* asteroid = dynamic_cast<Asteroid*>(hitObject))
+	{
+		Remove(asteroid);
+		m_Player->PlayerScoreComponent.AddScore(m_PointsPerAsteroid);
+	}
 }
 
 void Level::OnWin()

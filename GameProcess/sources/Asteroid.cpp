@@ -1,6 +1,7 @@
 #include "Asteroid.h"
 
 #include "Application.h"
+#include "Bullet.h"
 
 Asteroid::Asteroid(const float speed, const float bodySize, const sf::Vector2f& position, const sf::Vector2f direction)
 {
@@ -15,11 +16,40 @@ void Asteroid::Update()
 {
 	if (IsOnScreen())
 	{
-		//TODO: check collision with bullet or player
+		CheckBulletCollision();
+		CheckPlayerCollision();
 		Move(Application::Get().GetDeltaTime(), m_Direction, m_Speed);
 	}
 	else
 	{
 		Application::Get().GetCurrentLevel().Remove(this);
+	}
+}
+
+void Asteroid::CheckBulletCollision()
+{
+	auto currentLevel = Application::Get().GetCurrentLevel();
+	auto objectsOnScreen = currentLevel.GetAllObjectsOnScreen();
+	for (auto* objectOnScreen : objectsOnScreen)
+	{
+		if (auto* bullet = dynamic_cast<Bullet*>(objectOnScreen))
+		{
+			if (getGlobalBounds().findIntersection(bullet->getGlobalBounds()))
+			{
+				Application::Get().GetCurrentLevel().OnDrawableObjectHit(0.f, this, bullet);
+			}
+		}
+	}
+}
+
+void Asteroid::CheckPlayerCollision()
+{
+	Spaceship* player = dynamic_cast<Spaceship*>(Application::Get().GetCurrentLevel().GetPlayer());
+	if (!player)
+		return;
+
+	if (getGlobalBounds().findIntersection(player->getGlobalBounds()))
+	{
+		Application::Get().GetCurrentLevel().OnDrawableObjectHit(m_Damage, player, this);
 	}
 }

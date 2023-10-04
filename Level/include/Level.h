@@ -2,7 +2,6 @@
 
 #include "Spaceship.h"
 #include "DangerZone.h"
-#include "Asteroid.h"
 
 #include <vector>
 
@@ -18,9 +17,10 @@ class Level
 {
 private:
 	sf::RenderWindow* m_CurrentWindow{};
+	float m_TimeForAsteroids = 0.1f;
 	GameState m_CurrentGameState = GameState::MainMenu;
 	int m_ZonesCount = 3;
-	int m_PointsPerZone = 100;
+	int m_PointsPerAsteroid = 100;
 	bool m_IsPlayerInDangerZone = false;
 	
 	Spaceship* m_Player{};
@@ -40,7 +40,6 @@ private:
 	void ClearLevel();
 
 public:
-	Level();
 	void Add(DrawableObject* objectToAdd);
 	void Remove(DrawableObject* objectToRemove);
 	void UpdateGameState();
@@ -48,8 +47,10 @@ public:
 	void Draw(sf::RenderWindow* windowToDrawAt);
 
 	void ZonePassed();
+	void OnDrawableObjectHit(const float damage, DrawableObject* hitObject, DrawableObject* hitCauser);
 
-	DrawableObject* GetPlayer() { return m_Player; }
+	DrawableObject* GetPlayer() const { return m_Player; }
+	std::vector<DrawableObject*>& GetAllObjectsOnScreen() { return m_DrawableObjects; }
 	bool GetPlayerStateInDangerZone() const { return m_IsPlayerInDangerZone; }
 	void SetPlayerStateInDangerZone(const bool newState) { m_IsPlayerInDangerZone = newState; }
 

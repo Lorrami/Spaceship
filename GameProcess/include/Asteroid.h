@@ -12,5 +12,9 @@ public:
 private:
 	sf::Vector2f m_Direction{};
 	float m_Speed{};
+	int m_Damage = 50;
+
+	void CheckBulletCollision();
+	void CheckPlayerCollision();
 
 };
