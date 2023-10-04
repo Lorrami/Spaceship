@@ -20,7 +20,6 @@ void Spaceship::Update()
 	OnMousePressed();
 	OnKeyboardPressed();
 	UpdateRotation();
-	std::cout << PlayerScoreComponent.GetScore() << std::endl;
 }
 
 void Spaceship::OnKeyboardPressed()

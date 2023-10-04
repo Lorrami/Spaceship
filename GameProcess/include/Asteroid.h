@@ -5,7 +5,7 @@
 class Asteroid : public MovableObject
 {
 public:
-	Asteroid(const float speed, const float bodySize, const sf::Vector2f& position, const sf::Vector2f direction);
+	Asteroid(const float speed, const float bodySize, const sf::Vector2f& position, const sf::Angle& rotation, const sf::Vector2f direction);
 
 	virtual void Update() override;
 

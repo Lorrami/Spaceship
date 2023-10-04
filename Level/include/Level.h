@@ -5,7 +5,7 @@
 
 #include <vector>
 
-enum class GameState
+enum class GameState : int
 {
 	MainMenu = -1,
 	InProgress = 0,
@@ -22,6 +22,10 @@ private:
 	int m_ZonesCount = 3;
 	int m_PointsPerAsteroid = 100;
 	bool m_IsPlayerInDangerZone = false;
+
+	const sf::Vector2i m_AsteroidSpeedRange{ 300, 800 };
+	const sf::Vector2i m_AsteroidSizeRange{ 20, 60 };
+	const sf::Vector2i m_AsteroidPositionRangeX{ 0, 60 };
 	
 	Spaceship* m_Player{};
 
@@ -39,6 +43,9 @@ private:
 	void OnLoose();
 	void ClearLevel();
 
+	sf::Vector2f& GetDirectionForAsteroid(const sf::Vector2f& location);
+	sf::Angle& GetRotationForAsteroid();
+
 public:
 	void Add(DrawableObject* objectToAdd);
 	void Remove(DrawableObject* objectToRemove);
@@ -47,7 +54,7 @@ public:
 	void Draw(sf::RenderWindow* windowToDrawAt);
 
 	void ZonePassed();
-	void OnDrawableObjectHit(const float damage, DrawableObject* hitObject, DrawableObject* hitCauser);
+	void OnDrawableObjectHit(const int damage, DrawableObject* hitObject, DrawableObject* hitCauser);
 
 	DrawableObject* GetPlayer() const { return m_Player; }
 	std::vector<DrawableObject*>& GetAllObjectsOnScreen() { return m_DrawableObjects; }
