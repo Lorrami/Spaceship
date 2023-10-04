@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "Bullet.h"
 
+#include <iostream>
+
 Asteroid::Asteroid(const float speed, const float bodySize)
 {
 	m_Speed = speed;
@@ -11,9 +13,8 @@ Asteroid::Asteroid(const float speed, const float bodySize)
 	setOrigin(sf::Vector2f(bodySize / 2, bodySize / 2));
 	setSize(sf::Vector2f(bodySize, bodySize));
 	setRotation(CalculateRotation());
-
 	//////
-	//TODO: random spawn for asteroids
+	//TODO: random spawn location for asteroids
 	//////
 }
 

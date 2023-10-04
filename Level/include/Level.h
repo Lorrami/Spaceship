@@ -24,7 +24,7 @@ private:
 	bool m_IsPlayerInDangerZone = false;
 
 	const sf::Vector2i m_AsteroidSpeedRange{ 300, 800 };
-	const sf::Vector2i m_AsteroidSizeRange{ 20, 60 };
+	const sf::Vector2i m_AsteroidSizeRange{ 20, 50 };
 	
 	Spaceship* m_Player{};
 
