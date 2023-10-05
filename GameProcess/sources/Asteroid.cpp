@@ -7,21 +7,11 @@
 
 Asteroid::Asteroid(const float speed, const float bodySize)
 {
+	m_Speed = speed;
 	setPosition(CalculatePosition());
 	setOrigin(sf::Vector2f(bodySize / 2, bodySize / 2));
 	setSize(sf::Vector2f(bodySize, bodySize));
-	setRotation(CalculateRotation());
-
-	m_Speed = speed;
 	m_Direction = CalculateDirection();
-}
-
-sf::Angle& Asteroid::CalculateRotation()
-{
-	DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
-	float dx = -player->getPosition().x + getPosition().x;
-	float dy = -player->getPosition().y + getPosition().y;
-	return sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f);
 }
 
 sf::Vector2f& Asteroid::CalculateDirection()
@@ -94,11 +84,18 @@ void Asteroid::Update()
 		CheckBulletCollision();
 		CheckPlayerCollision();
 		Move(Application::Get().GetDeltaTime(), m_Direction, m_Speed);
+		setRotation(CalculateRotation());
 	}
 	else
 	{
 		Application::Get().GetCurrentLevel().Remove(this);
 	}
+}
+
+sf::Angle& Asteroid::CalculateRotation()
+{
+	sf::Angle previousRotation = getRotation();
+	return sf::degrees(previousRotation.asDegrees() + m_Speed / m_RotationCoef * Application::Get().GetDeltaTime().asSeconds());
 }
 
 void Asteroid::CheckBulletCollision()
