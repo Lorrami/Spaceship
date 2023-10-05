@@ -8,4 +8,4 @@ add_library (GameProcess STATIC "sources/Spaceship.cpp"
 )
 
 target_include_directories (GameProcess PUBLIC "./include")
-target_link_libraries (GameProcess Application Components sfml-graphics sfml-audio sfml-window)
+target_link_libraries (GameProcess Application UI Components sfml-graphics sfml-audio sfml-window)

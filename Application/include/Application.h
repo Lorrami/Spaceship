@@ -14,6 +14,7 @@ public:
 	Level& GetCurrentLevel() { return m_Level; }
 	sf::Vector2i GetMouseRelativeLocation() const { return m_MouseLocation; }
 	sf::Vector2i GetWindowSize() const { return sf::Vector2i(m_WindowLength, m_WindowHeight); }
+	sf::RenderWindow& GetCurrentWindow() { return m_Window; }
 
 private:
 	const unsigned int m_WindowLength = 1080;

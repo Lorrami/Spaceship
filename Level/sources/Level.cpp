@@ -6,6 +6,11 @@
 #include "Asteroid.h"
 #include <iostream>
 
+Level::Level()
+{
+	m_MainMenuUI = new MainMenuUI();
+}
+
 void Level::UpdateGameState()
 {
 	switch (m_CurrentGameState)
@@ -25,17 +30,16 @@ void Level::UpdateGameState()
 	}
 }
 
-void Level::OnGameInMainMenu()
-{
-	// button start pressed =>
-	OnGameStarted();
-}
-
 void Level::OnGameStarted()
 {
 	SpawnDangerZones();
 	SpawnPlayer();
 	m_CurrentGameState = GameState::InProgress;
+}
+
+void Level::OnGameInMainMenu()
+{
+	m_MainMenuUI->Update();
 }
 
 void Level::SpawnPlayer()
@@ -55,6 +59,7 @@ void Level::OnGameInProgress()
 {
 	SpawnAsteroids();
 	CheckWinLooseConditions();
+	Draw();
 }
 
 void Level::CheckWinLooseConditions()
@@ -144,6 +149,7 @@ void Level::OnLoose()
 	std::cout << "Loose\n";
 	
 	ClearLevel();
+	m_MainMenuUI->Update();
 }
 
 void Level::ClearLevel()
@@ -167,16 +173,16 @@ void Level::Update()
 	m_DrawableObjects.insert(m_DrawableObjects.end(), m_PendingAddObjects.begin(), m_PendingAddObjects.end());
 	m_PendingAddObjects.clear();
 
-	for (DrawableObject* ObjectToRemove: m_PendingRemoveObjects)
+	for (DrawableObject* ObjectToRemove : m_PendingRemoveObjects)
 	{
 		m_DrawableObjects.erase(std::remove(m_DrawableObjects.begin(), m_DrawableObjects.end(), ObjectToRemove), m_DrawableObjects.end());
 	}
 	m_PendingRemoveObjects.clear();
 }
 
-void Level::Draw(sf::RenderWindow* windowToDrawAt)
+void Level::Draw()
 {
-	m_CurrentWindow = windowToDrawAt;
+	m_CurrentWindow = &(Application::Get().GetCurrentWindow());
 	for (auto* ObjectToDraw : m_DrawableObjects)
 	{
 		m_CurrentWindow->draw(*ObjectToDraw);

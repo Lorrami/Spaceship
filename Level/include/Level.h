@@ -2,6 +2,7 @@
 
 #include "Spaceship.h"
 #include "DangerZone.h"
+#include "MainMenuUI.h"
 
 #include <vector>
 #include <iostream>
@@ -17,6 +18,7 @@ enum class GameState : int
 class Level
 {
 private:
+	MainMenuUI* m_MainMenuUI;
 	sf::RenderWindow* m_CurrentWindow{};
 	float m_TimeForAsteroids = 0.1f;
 	GameState m_CurrentGameState = GameState::MainMenu;
@@ -38,7 +40,6 @@ private:
 
 	void OnGameInProgress();
 	void CheckWinLooseConditions();
-	void OnGameStarted();
 	void SpawnPlayer();
 	void SpawnDangerZones();
 	void SpawnAsteroids();
@@ -49,11 +50,14 @@ private:
 	void ClearLevel();
 
 public:
+	Level();
 	void Add(DrawableObject* objectToAdd);
 	void Remove(DrawableObject* objectToRemove);
 	void UpdateGameState();
 	void Update();
-	void Draw(sf::RenderWindow* windowToDrawAt);
+	void Draw();
+
+	void OnGameStarted();
 
 	void ZonePassed();
 	void OnDrawableObjectHit(const int damage, DrawableObject* hitObject, DrawableObject* hitCauser);
@@ -61,5 +65,8 @@ public:
 	DrawableObject* GetPlayer() const { return m_Player; }
 	std::vector<DrawableObject*>& GetAllObjectsOnScreen() { return m_DrawableObjects; }
 	bool GetPlayerStateInDangerZone() const { return m_IsPlayerInDangerZone; }
+
+	int GetCurrentScore() const { m_Player->PlayerScoreComponent.GetScore(); }
+	GameState GetCurrentGameState() const { return m_CurrentGameState; }
 
 };

@@ -44,6 +44,9 @@ void Spaceship::OnKeyboardPressed()
 
 void Spaceship::OnMousePressed()
 {
+	if (Application::Get().GetCurrentLevel().GetCurrentGameState() != GameState::InProgress)
+		return;
+
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		if (m_Timer.asSeconds() <= 0.f)

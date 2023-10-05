@@ -24,10 +24,9 @@ void Application::Run()
         HandleEvents();
 
         m_Window.clear(sf::Color::Black);
-        m_Level.Draw(&m_Window);
-        m_Window.display();
-
         m_Level.Update();
+
+        m_Window.display();
     }
 }
 
