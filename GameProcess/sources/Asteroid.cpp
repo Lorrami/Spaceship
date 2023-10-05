@@ -39,16 +39,37 @@ sf::Vector2f& Asteroid::CalculatePosition()
 	float targetX{}, targetY{};
 
 	int choiceSide = std::rand() % 2;
-	if (choiceSide == 0)
+	if (choiceSide == 0) //spawn on random X on top or bottom
 	{
-		std::cout << "Spawning on X side" << std::endl;
-		float minX = getSize().x / 2;
-		float maxX = Application::Get().GetWindowSize().x - getSize().x / 2;
+		int minX = (int)(getSize().x / 2);
+		int maxX = (int)(Application::Get().GetWindowSize().x - getSize().x / 2);
+		targetX = (float)(std::rand() % (maxX - minX + 1) + minX);
 
+		int choice = std::rand() % 2;
+		if (choice == 0) // spawn on top
+		{
+			targetY = -getSize().y;
+		}
+		else // spawn on bottom
+		{
+			targetY = Application::Get().GetWindowSize().y + getSize().y;
+		}
 	}
-	else
+	else //spawn on random Y on left or right
 	{
-		std::cout << "Spawning on Y side" << std::endl;
+		int minY = (int)(getSize().y / 2);
+		int maxY = (int)(Application::Get().GetWindowSize().y - getSize().y / 2);
+		targetY = (float)(std::rand() % (maxY - minY + 1) + minY);
+
+		int choice = std::rand() % 2;
+		if (choice == 0) // spawn on left
+		{
+			targetX = -getSize().x;
+		}
+		else // spawn on right
+		{
+			targetX = Application::Get().GetWindowSize().x + getSize().x;
+		}
 	}
 
 	return sf::Vector2f(targetX, targetY);
