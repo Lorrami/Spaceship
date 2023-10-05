@@ -33,9 +33,6 @@ sf::Vector2f& Asteroid::CalculateDirection(const sf::Vector2f& location)
 
 sf::Vector2f& Asteroid::CalculatePosition()
 {
-	//////
-	//TODO: random spawn location for asteroids
-	//////
 	float targetX{}, targetY{};
 
 	int choiceSide = std::rand() % 2;
