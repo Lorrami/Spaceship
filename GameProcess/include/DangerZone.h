@@ -9,9 +9,13 @@ public:
 
 	virtual void Update() override;
 
+	bool GetPlayerStateInDangerZone() const { return m_IsPlayerInZone; }
+	void SetPlayerStateInDangerZone(const bool newState) { m_IsPlayerInZone = newState; }
+
 private:
 	float m_ZoneTime{};
 	float m_CurrentTime{};
+	bool m_IsPlayerInZone = false;
 
 	void CheckCollisionWithPlayer();
 

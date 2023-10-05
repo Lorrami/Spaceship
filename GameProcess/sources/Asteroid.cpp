@@ -26,9 +26,17 @@ sf::Angle& Asteroid::CalculateRotation()
 
 sf::Vector2f& Asteroid::CalculateDirection(const sf::Vector2f& location)
 {
-	DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
-	sf::Vector2f normal = (player->getPosition() - location).normalized();
-	return normal;
+	if (Application::Get().GetCurrentLevel().GetPlayerStateInDangerZone())
+	{
+		DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
+		sf::Vector2f normal = (player->getPosition() - location).normalized();
+		return normal;
+	}
+	else
+	{
+		std::cout << "Player not in danger zone. Let him live!" << std::endl;
+		return sf::Vector2f(0.f, 0.f);
+	}
 }
 
 sf::Vector2f& Asteroid::CalculatePosition()
@@ -88,8 +96,7 @@ void Asteroid::Update()
 
 void Asteroid::CheckBulletCollision()
 {
-	auto currentLevel = Application::Get().GetCurrentLevel();
-	auto objectsOnScreen = currentLevel.GetAllObjectsOnScreen();
+	auto objectsOnScreen = Application::Get().GetCurrentLevel().GetAllObjectsOnScreen();
 	for (auto* objectOnScreen : objectsOnScreen)
 	{
 		if (auto* bullet = dynamic_cast<Bullet*>(objectOnScreen))

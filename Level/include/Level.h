@@ -4,6 +4,7 @@
 #include "DangerZone.h"
 
 #include <vector>
+#include <iostream>
 
 enum class GameState : int
 {
@@ -57,6 +58,5 @@ public:
 	DrawableObject* GetPlayer() const { return m_Player; }
 	std::vector<DrawableObject*>& GetAllObjectsOnScreen() { return m_DrawableObjects; }
 	bool GetPlayerStateInDangerZone() const { return m_IsPlayerInDangerZone; }
-	void SetPlayerStateInDangerZone(const bool newState) { m_IsPlayerInDangerZone = newState; }
 
 };

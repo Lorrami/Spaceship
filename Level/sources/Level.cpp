@@ -93,22 +93,32 @@ void Level::SpawnAsteroids()
 
 void Level::AdjustAsteroidsParameters()
 {
-	if (m_IsPlayerInDangerZone)
+	for (auto* drawableObject : m_DrawableObjects)
 	{
-		//////
-		//TODO: make asteroids speed and direction harder
-		//////
-	}
-	else
-	{
-		//////
-		//TODO: make asteroids speed and direction easier
-		//////
+		if (DangerZone* zone = dynamic_cast<DangerZone*>(drawableObject))
+		{
+			if (zone->GetPlayerStateInDangerZone())
+			{
+				m_IsPlayerInDangerZone = true;
+				return;
+				//////
+				//TODO: make asteroids speed harder
+				//////
+			}
+			else
+			{
+				m_IsPlayerInDangerZone = false;
+				//////
+				//TODO: make asteroids speed easier
+				//////
+			}
+		}
 	}
 }
 
 void Level::ZonePassed()
 {
+	m_IsPlayerInDangerZone = false;
 	m_ZonesCount--;
 }
 
@@ -142,6 +152,7 @@ void Level::OnLoose()
 
 void Level::ClearLevel()
 {
+	m_IsPlayerInDangerZone = false;
 	for (auto DrawableObject : m_DrawableObjects)
 	{
 		Remove(DrawableObject);
