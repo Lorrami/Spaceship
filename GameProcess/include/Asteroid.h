@@ -14,7 +14,8 @@ private:
 	float m_Speed{};
 	int m_Damage = 20;
 
-	sf::Vector2f& CalculateDirection(const sf::Vector2f& location);
+	sf::Vector2f& CalculateDirection();
+	sf::Vector2f& GetNormalToPlayer();
 	sf::Angle& CalculateRotation();
 	sf::Vector2f& CalculatePosition();
 

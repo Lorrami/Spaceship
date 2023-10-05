@@ -100,17 +100,13 @@ void Level::AdjustAsteroidsParameters()
 			if (zone->GetPlayerStateInDangerZone())
 			{
 				m_IsPlayerInDangerZone = true;
+				m_AsteroidSpeedRange = m_AsteroidSpeedRangeActive;
 				return;
-				//////
-				//TODO: make asteroids speed harder
-				//////
 			}
 			else
 			{
 				m_IsPlayerInDangerZone = false;
-				//////
-				//TODO: make asteroids speed easier
-				//////
+				m_AsteroidSpeedRange = m_AsteroidSpeedRangeUnactive;
 			}
 		}
 	}

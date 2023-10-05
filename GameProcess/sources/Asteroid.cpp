@@ -13,7 +13,7 @@ Asteroid::Asteroid(const float speed, const float bodySize)
 	setRotation(CalculateRotation());
 
 	m_Speed = speed;
-	m_Direction = CalculateDirection(getPosition());
+	m_Direction = CalculateDirection();
 }
 
 sf::Angle& Asteroid::CalculateRotation()
@@ -24,19 +24,26 @@ sf::Angle& Asteroid::CalculateRotation()
 	return sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f);
 }
 
-sf::Vector2f& Asteroid::CalculateDirection(const sf::Vector2f& location)
+sf::Vector2f& Asteroid::CalculateDirection()
 {
 	if (Application::Get().GetCurrentLevel().GetPlayerStateInDangerZone())
 	{
-		DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
-		sf::Vector2f normal = (player->getPosition() - location).normalized();
-		return normal;
+		return GetNormalToPlayer();
 	}
 	else
 	{
-		std::cout << "Player not in danger zone. Let him live!" << std::endl;
-		return sf::Vector2f(0.f, 0.f);
+		float xBuffer = static_cast<float>(std::rand()) / RAND_MAX * 1.0 - 0.5;
+		float yBuffer = static_cast<float>(std::rand()) / RAND_MAX * 1.0 - 0.5;
+
+		return GetNormalToPlayer() + sf::Vector2f{ xBuffer, yBuffer };
 	}
+}
+
+sf::Vector2f& Asteroid::GetNormalToPlayer()
+{
+	DrawableObject* player = Application::Get().GetCurrentLevel().GetPlayer();
+	sf::Vector2f normal = (player->getPosition() - getPosition()).normalized();
+	return normal;
 }
 
 sf::Vector2f& Asteroid::CalculatePosition()
