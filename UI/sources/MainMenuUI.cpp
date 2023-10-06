@@ -2,7 +2,6 @@
 
 #include "Application.h"
 
-#include <iostream>
 #include <string>
 
 void MainMenuUI::Init()
@@ -71,7 +70,6 @@ void MainMenuUI::Update()
 
 bool MainMenuUI::CheckStartButton()
 {
-	std::cout << Application::Get().GetIsMouseLocked() << std::endl;
 	if (Application::Get().GetIsMouseLocked())
 		return false;
 

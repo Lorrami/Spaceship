@@ -3,15 +3,12 @@
 #include "Application.h"
 
 #include <sstream>
-#include <iostream>
 #include <string>
 
 void GameEndedUI::Init(const bool gameState)
 {
 	m_CurrentState = gameState;
 	InitTexts();
-	/*InitStartButton();
-	InitLeaveButton();*/
 }
 
 void GameEndedUI::InitTexts()

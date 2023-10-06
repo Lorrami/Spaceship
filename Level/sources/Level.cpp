@@ -1,10 +1,7 @@
 #include "Level.h"
-#include "Level.h"
-#include "Level.h"@
 
 #include "Application.h"
 #include "Asteroid.h"
-#include <iostream>
 
 void Level::Init()
 {

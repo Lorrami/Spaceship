@@ -3,7 +3,6 @@
 #include "Application.h"
 
 #include <sstream>
-#include <iostream>
 #include <string>
 
 void InGameUI::Init()
