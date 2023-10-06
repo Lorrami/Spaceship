@@ -24,7 +24,7 @@ private:
 	void InitTextsForWin();
 	void InitTextsForLoose();
 	void InitTimer();
-	std::string FormatTimer(float time, int digits, bool includeMinutes);
+	std::string FormatTimer(float time, int digits);
 	//void InitStartButton();
 	//void InitLeaveButton();
 

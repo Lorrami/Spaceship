@@ -67,16 +67,16 @@ void GameEndedUI::InitTimer()
 	float time = Application::Get().GetCurrentLevel().GetGlobalGameTime();
 	if (time >= 0.f && time < 10.f)
 	{
-		m_GlobalTimer = new sf::Text(*m_Font, "Spent time: " + FormatTimer(time, 3, false) + " sec.");
+		m_GlobalTimer = new sf::Text(*m_Font, "Spent time: " + FormatTimer(time, 3) + " sec.");
 	}
 	else if (time >= 10.f && time < 60.f)
 	{
-		m_GlobalTimer = new sf::Text(*m_Font, "Spent time: " + FormatTimer(time, 4, false) + " sec.");
+		m_GlobalTimer = new sf::Text(*m_Font, "Spent time: " + FormatTimer(time, 4) + " sec.");
 	}
 	else if (time >= 60.f)
 	{
 		int minutes = time / 60;
-		m_GlobalTimer = new sf::Text(*m_Font, "Spent time: " + std::to_string(minutes) + " min. " + FormatTimer(time - minutes * 60, 4, true) + " sec.");
+		m_GlobalTimer = new sf::Text(*m_Font, "Spent time: " + std::to_string(minutes) + " min. " + FormatTimer(time - minutes * 60, 4) + " sec.");
 	}
 
 	sf::FloatRect textRect = m_GlobalTimer->getLocalBounds();
@@ -85,16 +85,9 @@ void GameEndedUI::InitTimer()
 	m_GlobalTimer->setPosition(sf::Vector2f(540.f, 350.f));
 }
 
-std::string GameEndedUI::FormatTimer(float time, int digits, bool includeMinutes)
+std::string GameEndedUI::FormatTimer(float time, int digits)
 {
 	if (!includeMinutes)
-	{
-		std::ostringstream ss;
-		ss.precision(digits);
-		ss << time;
-		return ss.str();
-	}
-	else
 	{
 		std::ostringstream ss;
 		ss.precision(digits);
