@@ -7,12 +7,19 @@
 
 Spaceship::Spaceship()
 {
-	setFillColor(sf::Color::Red);
 	setOrigin(sf::Vector2f(m_BodySize.x / 2, m_BodySize.y / 2));
 	setSize(m_BodySize);
 	setPosition(m_StartPosition);
 
 	PlayerHealthComponent.SetMaxHealth(100);
+}
+
+void Spaceship::Init()
+{
+	if (m_SpaceshipTexture->loadFromFile("../../../Resources/Spaceship.png"))
+	{
+		setTexture(m_SpaceshipTexture);
+	}
 }
 
 void Spaceship::Update()
@@ -86,6 +93,6 @@ void Spaceship::UpdateRotation()
 	sf::Vector2i mouseLocation = Application::Get().GetMouseRelativeLocation();
 	float dx = -mouseLocation.x + getPosition().x;
 	float dy = -mouseLocation.y + getPosition().y;
-	sf::Angle rotation = sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f);
+	sf::Angle rotation = sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f - 90.f);
 	setRotation(rotation);
 }
