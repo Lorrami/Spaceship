@@ -86,6 +86,7 @@ void Level::OnGameWon()
 void Level::OnGameLost()
 {
 	m_Player->PlayerScoreComponent.AddScore(-m_Player->PlayerScoreComponent.GetCurrentScore());
+	m_Player->PlayerScoreComponent.SaveScore();
 	m_GameEndedUI->Init(false);
 	m_CurrentGameState = GameState::GameEnded;
 }
