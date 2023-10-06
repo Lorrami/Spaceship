@@ -13,7 +13,7 @@ void MainMenuUI::Init()
 
 void MainMenuUI::InitTexts()
 {
-	if (m_Font->loadFromFile("../../../Resources/Text1.ttf"))
+	if (m_Font->loadFromFile("Resources/Text1.ttf"))
 	{
 		m_PlayerScoreText = new sf::Text(*m_Font, "Max score: " + std::to_string(dynamic_cast<Spaceship*>(Application::Get().GetCurrentLevel().GetPlayer())->PlayerScoreComponent.GetEarnedScore()));
 		m_PlayerScoreText->setPosition(sf::Vector2f(10.f, 10.f));
@@ -29,7 +29,7 @@ void MainMenuUI::InitTexts()
 
 void MainMenuUI::InitStartButton()
 {
-	if (m_StartButtonTexture->loadFromFile("../../../Resources/StartButton.png"))
+	if (m_StartButtonTexture->loadFromFile("Resources/StartButton.png"))
 	{
 		m_StartButton->setTexture(m_StartButtonTexture);
 		m_StartButton->setSize(sf::Vector2f(230, 90));
@@ -40,7 +40,7 @@ void MainMenuUI::InitStartButton()
 
 void MainMenuUI::InitLeaveButton()
 {
-	if (m_LeaveButtonTexture->loadFromFile("../../../Resources/LeaveButton.png"))
+	if (m_LeaveButtonTexture->loadFromFile("Resources/LeaveButton.png"))
 	{
 		m_LeaveButton->setTexture(m_LeaveButtonTexture);
 		m_LeaveButton->setSize(sf::Vector2f(110, 90));

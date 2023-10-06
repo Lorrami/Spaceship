@@ -9,7 +9,7 @@ ScoreComponent::ScoreComponent()
 
 void ScoreComponent::ReadStoredScore()
 {
-    m_EarnderScore = ReadOrCreateFile("../../../Resources/Score.txt", 0);
+    m_EarnderScore = ReadOrCreateFile("Resources/Score.txt", 0);
 }
 
 int ScoreComponent::ReadOrCreateFile(const std::string& filename, int defaultValue)
@@ -48,7 +48,7 @@ void ScoreComponent::AddScore(const int score)
 
 void ScoreComponent::SaveScore()
 {
-    std::ofstream output_file("../../../Resources/Score.txt");
+    std::ofstream output_file("Resources/Score.txt");
     output_file << m_CurrentScore + m_EarnderScore;
     output_file.close();
 }

@@ -3,6 +3,8 @@ set (CMAKE_CXX_STANDARD 11)
 
 project (Spaceship)
 
+FILE(COPY Resources/. DESTINATION "${CMAKE_BINARY_DIR}/Resources")
+
 add_subdirectory (SFML)
 add_subdirectory (UI)
 add_subdirectory (Components)

@@ -17,7 +17,7 @@ Bullet::Bullet(const sf::Vector2f startLocation, const sf::Vector2f startDirecti
 
 void Bullet::Init()
 {
-	if (m_Texture->loadFromFile("../../../Resources/Bullet.png"))
+	if (m_Texture->loadFromFile("Resources/Bullet.png"))
 	{
 		setTexture(m_Texture);
 	}

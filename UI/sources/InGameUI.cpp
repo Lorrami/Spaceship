@@ -12,7 +12,7 @@ void InGameUI::Init()
 
 void InGameUI::InitTexts()
 {
-	if (m_Font->loadFromFile("../../../Resources/Text1.ttf"))
+	if (m_Font->loadFromFile("Resources/Text1.ttf"))
 	{
 		InitPlayerScore();
 		InitPlayerHealth();
@@ -39,11 +39,10 @@ void InGameUI::InitPlayerHealth()
 
 void InGameUI::InitTimer()
 {
-	m_Timer = new sf::Text(*m_Font, "TIMER");
+	m_Timer = new sf::Text(*m_Font, "");
 	sf::FloatRect timerRect = m_Timer->getLocalBounds();
 	m_Timer->setPosition(sf::Vector2f(
 		Application::Get().GetWindowSize().x / 2 - (timerRect.left + timerRect.width), 10.f));
-	std::setprecision(2);
 }
 
 void InGameUI::Update()

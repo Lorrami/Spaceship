@@ -14,7 +14,7 @@ Asteroid::Asteroid(const float speed, const float bodySize)
 
 void Asteroid::Init()
 {
-	if (m_Texture->loadFromFile("../../../Resources/Asteroid.png"))
+	if (m_Texture->loadFromFile("Resources/Asteroid.png"))
 	{
 		setTexture(m_Texture);
 	}

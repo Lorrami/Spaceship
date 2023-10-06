@@ -14,7 +14,7 @@ Spaceship::Spaceship()
 
 void Spaceship::Init()
 {
-	if (m_SpaceshipTexture->loadFromFile("../../../Resources/Spaceship.png"))
+	if (m_SpaceshipTexture->loadFromFile("Resources/Spaceship.png"))
 	{
 		setTexture(m_SpaceshipTexture);
 	}

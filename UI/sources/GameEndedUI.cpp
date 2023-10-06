@@ -13,7 +13,7 @@ void GameEndedUI::Init(const bool gameState)
 
 void GameEndedUI::InitTexts()
 {
-	if (!m_Font->loadFromFile("../../../Resources/Text1.ttf"))
+	if (!m_Font->loadFromFile("Resources/Text1.ttf"))
 		return; 
 
 	if (m_CurrentState)
@@ -93,7 +93,7 @@ std::string GameEndedUI::FormatTimer(float time, int digits)
 
 void GameEndedUI::InitMainMenuButton()
 {
-	if (m_ReturnButtonTexture->loadFromFile("../../../Resources/ReturnButton.png"))
+	if (m_ReturnButtonTexture->loadFromFile("Resources/ReturnButton.png"))
 	{
 		m_ReturnButton->setTexture(m_ReturnButtonTexture);
 		m_ReturnButton->setSize(sf::Vector2f(210, 70));
