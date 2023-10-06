@@ -44,17 +44,16 @@ void Spaceship::OnKeyboardPressed()
 
 void Spaceship::OnMousePressed()
 {
+	if (Application::Get().GetIsMouseLocked())
+		return;
+
 	if (Application::Get().GetCurrentLevel().GetCurrentGameState() != GameState::InProgress)
 		return;
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (m_Timer.asSeconds() <= 0.f)
-			ShootProjectile();
-
-		m_Timer += Application::Get().GetDeltaTime();
-		if (m_Timer.asSeconds() >= m_ShootingDelay)
-			m_Timer = m_Timer.Zero;
+		Application::Get().SetMouseLocked(true);
+		ShootProjectile();
 	}
 }
 

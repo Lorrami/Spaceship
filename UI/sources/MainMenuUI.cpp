@@ -71,28 +71,37 @@ void MainMenuUI::Update()
 
 bool MainMenuUI::CheckStartButton()
 {
-	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	std::cout << Application::Get().GetIsMouseLocked() << std::endl;
+	if (Application::Get().GetIsMouseLocked())
 		return false;
 
-	if (m_StartButton->getGlobalBounds().contains(
-		sf::Vector2f((float)Application::Get().GetMouseRelativeLocation().x,
-			(float)Application::Get().GetMouseRelativeLocation().y)))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		return true;
+		Application::Get().SetMouseLocked(true);
+		if (m_StartButton->getGlobalBounds().contains(
+			sf::Vector2f((float)Application::Get().GetMouseRelativeLocation().x,
+				(float)Application::Get().GetMouseRelativeLocation().y)))
+		{
+			return true;
+		}
 	}
 	return false;
 }
 
 bool MainMenuUI::CheckLeaveButton()
 {
-	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (Application::Get().GetIsMouseLocked())
 		return false;
 
-	if (m_LeaveButton->getGlobalBounds().contains(
-		sf::Vector2f((float)Application::Get().GetMouseRelativeLocation().x,
-			(float)Application::Get().GetMouseRelativeLocation().y)))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		return true;
+		Application::Get().SetMouseLocked(true);
+		if (m_LeaveButton->getGlobalBounds().contains(
+			sf::Vector2f((float)Application::Get().GetMouseRelativeLocation().x,
+				(float)Application::Get().GetMouseRelativeLocation().y)))
+		{
+			return true;
+		}
 	}
 	return false;
 

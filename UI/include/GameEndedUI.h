@@ -15,7 +15,8 @@ private:
 	sf::Text* m_PlayerScoreText = nullptr;
 	sf::Text* m_ResultText = nullptr;
 	sf::Text* m_GlobalTimer = nullptr;
-	sf::RectangleShape* m_MainMenuButton = new sf::RectangleShape();
+	sf::Texture* m_ReturnButtonTexture = new sf::Texture();
+	sf::RectangleShape* m_ReturnButton = new sf::RectangleShape();
 
 	void InitTexts();
 	void InitTextsForWin();
@@ -24,5 +25,5 @@ private:
 	void InitMainMenuButton();
 	std::string FormatTimer(float time, int digits);
 
-	bool CheckMainMenuButton();
+	bool CheckReturnButton();
 };

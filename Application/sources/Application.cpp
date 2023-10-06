@@ -43,6 +43,8 @@ void Application::HandleEvents()
     {
         if (event.type == sf::Event::Closed)
             m_Window.close();
+        if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
+            m_IsMouseLocked = false;
     }
 }
 

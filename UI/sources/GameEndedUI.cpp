@@ -27,8 +27,8 @@ void GameEndedUI::InitTexts()
 	{
 		InitTextsForLoose();
 	}
-	InitMainMenuButton();
 	InitTimer();
+	InitMainMenuButton();
 }
 
 void GameEndedUI::InitTextsForWin()
@@ -63,11 +63,6 @@ void GameEndedUI::InitTextsForLoose()
 	m_PlayerScoreText->setPosition(sf::Vector2f(540.f, 300.f));
 }
 
-void GameEndedUI::InitMainMenuButton()
-{
-
-}
-
 void GameEndedUI::InitTimer()
 {
 	float time = Application::Get().GetCurrentLevel().GetGlobalGameTime();
@@ -99,92 +94,45 @@ std::string GameEndedUI::FormatTimer(float time, int digits)
 	return ss.str();
 }
 
+void GameEndedUI::InitMainMenuButton()
+{
+	if (m_ReturnButtonTexture->loadFromFile("../../../Resources/ReturnButton.png"))
+	{
+		m_ReturnButton->setTexture(m_ReturnButtonTexture);
+		m_ReturnButton->setSize(sf::Vector2f(210, 70));
+		m_ReturnButton->setOrigin(sf::Vector2f(m_ReturnButton->getSize().x / 2, m_ReturnButton->getSize().y / 2));
+		m_ReturnButton->setPosition(sf::Vector2f(540.f, 450.f));
+	}
+}
+
 void GameEndedUI::Update()
 {
-	if (CheckMainMenuButton())
+	if (CheckReturnButton())
 	{
 		Application::Get().GetCurrentLevel().Init();
 		return;
 	}
 
-	Application::Get().GetCurrentWindow().draw(*m_MainMenuButton);
+	Application::Get().GetCurrentWindow().draw(*m_ReturnButton);
 	Application::Get().GetCurrentWindow().draw(*m_ResultText);
 	Application::Get().GetCurrentWindow().draw(*m_PlayerScoreText);
 	Application::Get().GetCurrentWindow().draw(*m_GlobalTimer);
 }
 
-bool GameEndedUI::CheckMainMenuButton()
+bool GameEndedUI::CheckReturnButton()
 {
-	return true;
-}
+	if (Application::Get().GetIsMouseLocked())
+		return false;
 
-//
-//void MainMenuUI::InitStartButton()
-//{
-//	if (m_StartButtonTexture->loadFromFile("../../../Resources/StartButton.png"))
-//	{
-//		m_StartButton->setTexture(m_StartButtonTexture);
-//		m_StartButton->setSize(sf::Vector2f(230, 90));
-//		m_StartButton->setOrigin(sf::Vector2f(m_StartButton->getSize().x / 2, m_StartButton->getSize().y / 2));
-//		m_StartButton->setPosition(sf::Vector2f(540.f, 460.f));
-//	}
-//}
-//
-//void MainMenuUI::InitLeaveButton()
-//{
-//	if (m_LeaveButtonTexture->loadFromFile("../../../Resources/LeaveButton.png"))
-//	{
-//		m_LeaveButton->setTexture(m_LeaveButtonTexture);
-//		m_LeaveButton->setSize(sf::Vector2f(110, 90));
-//		m_LeaveButton->setOrigin(sf::Vector2f(m_LeaveButton->getSize().x / 2, m_LeaveButton->getSize().y / 2));
-//		m_LeaveButton->setPosition(sf::Vector2f(540.f, 560.f));
-//	}
-//}
-//
-//void MainMenuUI::Update()
-//{
-//	if (CheckStartButton())
-//	{
-//		Application::Get().GetCurrentLevel().OnGameStarted();
-//		return;
-//	}
-//	else if (CheckLeaveButton())
-//	{
-//		Application::Get().Stop();
-//		return;
-//	}
-//
-//	Application::Get().GetCurrentWindow().draw(*m_StartButton);
-//	Application::Get().GetCurrentWindow().draw(*m_LeaveButton);
-//	Application::Get().GetCurrentWindow().draw(*m_PlayerScoreText);
-//	Application::Get().GetCurrentWindow().draw(*m_WelcomeText);
-//}
-//
-//bool MainMenuUI::CheckStartButton()
-//{
-//	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-//		return false;
-//
-//	if (m_StartButton->getGlobalBounds().contains(
-//		sf::Vector2f((float)Application::Get().GetMouseRelativeLocation().x,
-//			(float)Application::Get().GetMouseRelativeLocation().y)))
-//	{
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool MainMenuUI::CheckLeaveButton()
-//{
-//	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-//		return false;
-//
-//	if (m_LeaveButton->getGlobalBounds().contains(
-//		sf::Vector2f((float)Application::Get().GetMouseRelativeLocation().x,
-//			(float)Application::Get().GetMouseRelativeLocation().y)))
-//	{
-//		return true;
-//	}
-//	return false;
-//
-//}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		Application::Get().SetMouseLocked(true);
+		if (m_ReturnButton->getGlobalBounds().contains(
+			sf::Vector2f((float)Application::Get().GetMouseRelativeLocation().x,
+				(float)Application::Get().GetMouseRelativeLocation().y)))
+		{
+			return true;
+		}
+	}
+	return false;
+}
