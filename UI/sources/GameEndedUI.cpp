@@ -27,6 +27,7 @@ void GameEndedUI::InitTexts()
 	{
 		InitTextsForLoose();
 	}
+	InitMainMenuButton();
 	InitTimer();
 }
 
@@ -62,6 +63,11 @@ void GameEndedUI::InitTextsForLoose()
 	m_PlayerScoreText->setPosition(sf::Vector2f(540.f, 300.f));
 }
 
+void GameEndedUI::InitMainMenuButton()
+{
+
+}
+
 void GameEndedUI::InitTimer()
 {
 	float time = Application::Get().GetCurrentLevel().GetGlobalGameTime();
@@ -87,20 +93,29 @@ void GameEndedUI::InitTimer()
 
 std::string GameEndedUI::FormatTimer(float time, int digits)
 {
-	if (!includeMinutes)
-	{
-		std::ostringstream ss;
-		ss.precision(digits);
-		ss << time;
-		return ss.str();
-	}
+	std::ostringstream ss;
+	ss.precision(digits);
+	ss << time;
+	return ss.str();
 }
 
 void GameEndedUI::Update()
 {
+	if (CheckMainMenuButton())
+	{
+		Application::Get().GetCurrentLevel().Init();
+		return;
+	}
+
+	Application::Get().GetCurrentWindow().draw(*m_MainMenuButton);
 	Application::Get().GetCurrentWindow().draw(*m_ResultText);
 	Application::Get().GetCurrentWindow().draw(*m_PlayerScoreText);
 	Application::Get().GetCurrentWindow().draw(*m_GlobalTimer);
+}
+
+bool GameEndedUI::CheckMainMenuButton()
+{
+	return true;
 }
 
 //

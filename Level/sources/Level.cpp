@@ -9,6 +9,7 @@
 void Level::Init()
 {
 	m_Player = new Spaceship();
+	m_CurrentGameState = GameState::MainMenu;
 	m_MainMenuUI->Init();
 }
 
