@@ -3,11 +3,8 @@
 #include "Bullet.h"
 #include "Application.h"
 
-#include <iostream>
-
 Spaceship::Spaceship()
 {
-	setFillColor(sf::Color::Red);
 	setOrigin(sf::Vector2f(m_BodySize.x / 2, m_BodySize.y / 2));
 	setSize(m_BodySize);
 	setPosition(m_StartPosition);
@@ -15,12 +12,19 @@ Spaceship::Spaceship()
 	PlayerHealthComponent.SetMaxHealth(100);
 }
 
+void Spaceship::Init()
+{
+	if (m_SpaceshipTexture->loadFromFile("../../../Resources/Spaceship.png"))
+	{
+		setTexture(m_SpaceshipTexture);
+	}
+}
+
 void Spaceship::Update()
 {
 	OnMousePressed();
 	OnKeyboardPressed();
 	UpdateRotation();
-	std::cout << PlayerScoreComponent.GetScore() << std::endl;
 }
 
 void Spaceship::OnKeyboardPressed()
@@ -45,14 +49,16 @@ void Spaceship::OnKeyboardPressed()
 
 void Spaceship::OnMousePressed()
 {
+	if (Application::Get().GetIsMouseLocked())
+		return;
+
+	if (Application::Get().GetCurrentLevel().GetCurrentGameState() != GameState::InProgress)
+		return;
+
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (m_Timer.asSeconds() <= 0.f)
-			ShootProjectile();
-
-		m_Timer += Application::Get().GetDeltaTime();
-		if (m_Timer.asSeconds() >= m_ShootingDelay)
-			m_Timer = m_Timer.Zero;
+		Application::Get().SetMouseLocked(true);
+		ShootProjectile();
 	}
 }
 
@@ -77,7 +83,9 @@ void Spaceship::ShootProjectile()
 {
 	float dx = Application::Get().GetMouseRelativeLocation().x - getPosition().x;
 	float dy = Application::Get().GetMouseRelativeLocation().y - getPosition().y;
-	Application::Get().GetCurrentLevel().Add(new Bullet(getPosition(), sf::Vector2f(dx, dy)));
+	Bullet* bullet = new Bullet(getPosition(), sf::Vector2f(dx, dy));
+	bullet->Init();
+	Application::Get().GetCurrentLevel().Add(bullet);
 }
 
 void Spaceship::UpdateRotation()
@@ -85,6 +93,6 @@ void Spaceship::UpdateRotation()
 	sf::Vector2i mouseLocation = Application::Get().GetMouseRelativeLocation();
 	float dx = -mouseLocation.x + getPosition().x;
 	float dy = -mouseLocation.y + getPosition().y;
-	sf::Angle rotation = sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f);
+	sf::Angle rotation = sf::degrees(atan2(dy, dx) * 180.0f / 3.14159265f - 90.f);
 	setRotation(rotation);
 }

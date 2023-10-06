@@ -2,8 +2,6 @@
 
 #include "Application.h"
 
-#include <iostream>
-
 DangerZone::DangerZone(float zoneTime, float zoneRadius, const sf::Vector2f& zonePosition, const sf::Color& zoneColor)
 {
 	m_ZoneTime = zoneTime;
@@ -22,23 +20,25 @@ void DangerZone::Update()
 
 void DangerZone::CheckCollisionWithPlayer()
 {
-	if (getGlobalBounds().contains(Application::Get().GetCurrentLevel().GetPlayer()->getPosition()))
-	{
-		//TODO: say to level to make asteroids more complicated
-		std::cout << m_CurrentTime << std::endl;
+	Level* currentLevel = &(Application::Get().GetCurrentLevel());
 
+	if (getGlobalBounds().contains(currentLevel->GetPlayer()->getPosition()))
+	{
+		m_IsPlayerInZone = true;
 		m_CurrentTime -= Application::Get().GetDeltaTime().asSeconds();
+
+		currentLevel->UpdateZoneTimer(m_CurrentTime);
 		if (m_CurrentTime <= 0.f)
 		{
-			//TODO: say to level to add points to player
-			Application::Get().GetCurrentLevel().ZonePassed();
-			Application::Get().GetCurrentLevel().Remove(this);
-			return;
+			m_IsPlayerInZone = false;
+
+			currentLevel->ZonePassed();
+			currentLevel->Remove(this);
 		}
 	}
 	else
 	{
-		//TODO: say to level to make asteroids more easy
+		m_IsPlayerInZone = false;
 		m_CurrentTime = m_ZoneTime;
 	}
 }

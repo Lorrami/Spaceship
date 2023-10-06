@@ -16,6 +16,7 @@ void Application::InitWindow()
 void Application::Run()
 {
     sf::Clock clock;
+    m_Level.Init();
     while (m_Window.isOpen())
     {
         m_MouseLocation = sf::Mouse::getPosition(m_Window);
@@ -24,11 +25,15 @@ void Application::Run()
         HandleEvents();
 
         m_Window.clear(sf::Color::Black);
-        m_Level.Draw(&m_Window);
-        m_Window.display();
-
         m_Level.Update();
+
+        m_Window.display();
     }
+}
+
+void Application::Stop()
+{
+    m_Window.close();
 }
 
 void Application::HandleEvents()
@@ -38,6 +43,8 @@ void Application::HandleEvents()
     {
         if (event.type == sf::Event::Closed)
             m_Window.close();
+        if (event.type == sf::Event::MouseButtonReleased && event.key.code == sf::Mouse::Left)
+            m_IsMouseLocked = false;
     }
 }
 

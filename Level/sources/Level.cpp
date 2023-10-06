@@ -1,13 +1,19 @@
 #include "Level.h"
 
-#include <iostream>
+#include "Application.h"
+#include "Asteroid.h"
 
-Level::Level()
+void Level::Init()
 {
+	m_Player = new Spaceship();
+	m_Player->Init();
+	m_CurrentGameState = GameState::MainMenu;
+	m_MainMenuUI->Init();
 }
 
 void Level::UpdateGameState()
 {
+	m_GlobalGameTimer += Application::Get().GetDeltaTime().asSeconds();
 	switch (m_CurrentGameState)
 	{
 	case GameState::MainMenu:
@@ -16,19 +22,10 @@ void Level::UpdateGameState()
 	case GameState::InProgress:
 		OnGameInProgress();
 		break;
-	case GameState::Win:
-		OnWin();
-		break;
-	case GameState::Loose:
-		OnLoose();
+	case GameState::GameEnded:
+		OnGameEnded();
 		break;
 	}
-}
-
-void Level::OnGameInMainMenu()
-{
-	// button start pressed =>
-	OnGameStarted();
 }
 
 void Level::OnGameStarted()
@@ -36,11 +33,16 @@ void Level::OnGameStarted()
 	SpawnDangerZones();
 	SpawnPlayer();
 	m_CurrentGameState = GameState::InProgress;
+	m_InGameUI->Init();
+}
+
+void Level::OnGameInMainMenu()
+{
+	m_MainMenuUI->Update();
 }
 
 void Level::SpawnPlayer()
 {
-	m_Player = new Spaceship();
 	m_DrawableObjects.push_back(m_Player);
 }
 
@@ -53,43 +55,113 @@ void Level::SpawnDangerZones()
 
 void Level::OnGameInProgress()
 {
-	//////
-	//TODO: spawn asteroids
-	//////
-	if (!m_Player->PlayerHealthComponent.IsAlive())
-	{
-		m_CurrentGameState = GameState::Loose;
-		return;
-	}
+	SpawnAsteroids();
+	CheckWinLooseConditions();
+	Draw();
+	m_InGameUI->Update();
+}
+
+void Level::CheckWinLooseConditions()
+{
 	if (m_ZonesCount <= 0)
 	{
-		m_CurrentGameState = GameState::Win;
+		OnGameWon();
 		return;
+	}
+
+	if (!dynamic_cast<Spaceship*>(m_Player)->PlayerHealthComponent.IsAlive())
+	{
+		OnGameLost();
+		return;
+	}
+}
+
+void Level::OnGameWon()
+{
+	m_Player->PlayerScoreComponent.SaveScore();
+	m_GameEndedUI->Init(true);
+	m_CurrentGameState = GameState::GameEnded;
+}
+
+void Level::OnGameLost()
+{
+	m_Player->PlayerScoreComponent.AddScore(-m_Player->PlayerScoreComponent.GetCurrentScore());
+	m_GameEndedUI->Init(false);
+	m_CurrentGameState = GameState::GameEnded;
+}
+
+void Level::OnGameEnded()
+{
+	m_GameEndedUI->Update();
+	ClearLevel();
+}
+
+void Level::SpawnAsteroids()
+{
+	if (m_TimeForAsteroids <= 0)
+	{
+		AdjustAsteroidsParameters();
+
+		float newSpeed = (float)(std::rand() % (m_AsteroidSpeedRange.y - m_AsteroidSpeedRange.x + 1) + m_AsteroidSpeedRange.x);
+		float newSize = (float)(std::rand() % (m_AsteroidSizeRange.y - m_AsteroidSizeRange.x + 1) + m_AsteroidSizeRange.x);
+
+		Asteroid* asteroid = new Asteroid(newSpeed, newSize);
+		asteroid->Init();
+		Add(asteroid);
+
+		m_TimeForAsteroids = static_cast<float>(std::rand() % 151 + 10) / 100;
+	}
+	else
+	{
+		m_TimeForAsteroids -= Application::Get().GetDeltaTime().asSeconds();
+	}
+}
+
+void Level::AdjustAsteroidsParameters()
+{
+	for (auto* drawableObject : m_DrawableObjects)
+	{
+		if (DangerZone* zone = dynamic_cast<DangerZone*>(drawableObject))
+		{
+			if (zone->GetPlayerStateInDangerZone())
+			{
+				m_IsPlayerInDangerZone = true;
+				m_AsteroidSpeedRange = m_AsteroidSpeedRangeActive;
+				return;
+			}
+			else
+			{
+				m_IsPlayerInDangerZone = false;
+				m_AsteroidSpeedRange = m_AsteroidSpeedRangeUnactive;
+			}
+		}
 	}
 }
 
 void Level::ZonePassed()
 {
+	m_IsPlayerInDangerZone = false;
 	m_ZonesCount--;
-	m_Player->PlayerScoreComponent.AddScore(m_PointsPerZone);
 }
 
-void Level::OnWin()
+void Level::OnDrawableObjectHit(const int damage, DrawableObject* hitObject, DrawableObject* hitCauser)
 {
-	std::cout << "Win\n";
-
-	ClearLevel();
-}
-
-void Level::OnLoose()
-{
-	std::cout << "Loose\n";
-	
-	ClearLevel();
+	Remove(hitCauser);
+	if (dynamic_cast<Spaceship*>(hitObject))
+	{
+		m_Player->PlayerHealthComponent.TakeDamage(damage);
+	}
+	else if (Asteroid* asteroid = dynamic_cast<Asteroid*>(hitObject))
+	{
+		Remove(asteroid);
+		m_Player->PlayerScoreComponent.AddScore(m_PointsPerAsteroid);
+	}
 }
 
 void Level::ClearLevel()
 {
+	m_IsPlayerInDangerZone = false;
+	m_GlobalGameTimer = 0.f;
 	for (auto DrawableObject : m_DrawableObjects)
 	{
 		Remove(DrawableObject);
@@ -108,16 +180,16 @@ void Level::Update()
 	m_DrawableObjects.insert(m_DrawableObjects.end(), m_PendingAddObjects.begin(), m_PendingAddObjects.end());
 	m_PendingAddObjects.clear();
 
-	for (DrawableObject* ObjectToRemove: m_PendingRemoveObjects)
+	for (DrawableObject* ObjectToRemove : m_PendingRemoveObjects)
 	{
 		m_DrawableObjects.erase(std::remove(m_DrawableObjects.begin(), m_DrawableObjects.end(), ObjectToRemove), m_DrawableObjects.end());
 	}
 	m_PendingRemoveObjects.clear();
 }
 
-void Level::Draw(sf::RenderWindow* windowToDrawAt)
+void Level::Draw()
 {
-	m_CurrentWindow = windowToDrawAt;
+	m_CurrentWindow = &(Application::Get().GetCurrentWindow());
 	for (auto* ObjectToDraw : m_DrawableObjects)
 	{
 		m_CurrentWindow->draw(*ObjectToDraw);

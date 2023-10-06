@@ -5,6 +5,7 @@ class HealthComponent
 public:
 	void SetMaxHealth(const int maxHealth);
 	int GetMaxHealth() const;
+	int GetCurrentHealth() const;
 
 	bool IsAlive() const;
 
