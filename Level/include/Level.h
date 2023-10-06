@@ -18,7 +18,7 @@ enum class GameState : int
 class Level
 {
 private:
-	MainMenuUI* m_MainMenuUI;
+	MainMenuUI* m_MainMenuUI = new MainMenuUI();
 	sf::RenderWindow* m_CurrentWindow{};
 	float m_TimeForAsteroids = 0.1f;
 	GameState m_CurrentGameState = GameState::MainMenu;
@@ -50,7 +50,7 @@ private:
 	void ClearLevel();
 
 public:
-	Level();
+	void Init();
 	void Add(DrawableObject* objectToAdd);
 	void Remove(DrawableObject* objectToRemove);
 	void UpdateGameState();

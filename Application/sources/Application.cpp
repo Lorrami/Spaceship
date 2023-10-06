@@ -16,6 +16,7 @@ void Application::InitWindow()
 void Application::Run()
 {
     sf::Clock clock;
+    m_Level.Init();
     while (m_Window.isOpen())
     {
         m_MouseLocation = sf::Mouse::getPosition(m_Window);

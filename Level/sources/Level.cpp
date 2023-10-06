@@ -6,10 +6,10 @@
 #include "Asteroid.h"
 #include <iostream>
 
-Level::Level()
+void Level::Init()
 {
 	m_Player = new Spaceship();
-	m_MainMenuUI = new MainMenuUI();
+	m_MainMenuUI->Init();;
 }
 
 void Level::UpdateGameState()

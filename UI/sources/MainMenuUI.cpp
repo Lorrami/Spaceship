@@ -5,11 +5,8 @@
 #include <iostream>
 #include <string>
 
-MainMenuUI::MainMenuUI()
+void MainMenuUI::Init()
 {
-	m_Font = new sf::Font();
-	m_StartButtonTexture = new sf::Texture();
-
 	if (m_Font->loadFromFile("../../../Resources/Text1.ttf"))
 	{
 		m_PlayerScoreText = new sf::Text(*m_Font, "Score: " + std::to_string(Application::Get().GetCurrentLevel().GetCurrentScore()));
@@ -22,11 +19,12 @@ MainMenuUI::MainMenuUI()
 			textRect.top + textRect.height / 2.0f));
 		m_WelcomeText->setPosition(sf::Vector2f(540.f, 200.f));
 	}
-	
+
+
 	if (m_StartButtonTexture->loadFromFile("../../../Resources/StartButton.png"))
 	{
-		m_StartButton->setTexture(m_StartButtonTexture, true);
-		//m_StartButton->setSize(sf::Vector2f(300, 100));
+		m_StartButton->setTexture(m_StartButtonTexture);
+		m_StartButton->setSize(sf::Vector2f(300, 100));
 		m_StartButton->setOrigin(sf::Vector2f(m_StartButton->getSize().x / 2, m_StartButton->getSize().y / 2));
 		m_StartButton->setPosition(sf::Vector2f(540.f, 360.f));
 	}
