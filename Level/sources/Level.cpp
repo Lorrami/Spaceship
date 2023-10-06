@@ -14,6 +14,7 @@ void Level::Init()
 
 void Level::UpdateGameState()
 {
+	m_GlobalGameTimer += Application::Get().GetDeltaTime().asSeconds();
 	switch (m_CurrentGameState)
 	{
 	case GameState::MainMenu:
@@ -22,11 +23,8 @@ void Level::UpdateGameState()
 	case GameState::InProgress:
 		OnGameInProgress();
 		break;
-	case GameState::Win:
-		OnWin();
-		break;
-	case GameState::Loose:
-		OnLoose();
+	case GameState::GameEnded:
+		OnGameEnded();
 		break;
 	}
 }
@@ -68,15 +66,27 @@ void Level::CheckWinLooseConditions()
 {
 	if (m_ZonesCount <= 0)
 	{
-		m_CurrentGameState = GameState::Win;
+		OnGameWon();
 		return;
 	}
 
 	if (!dynamic_cast<Spaceship*>(m_Player)->PlayerHealthComponent.IsAlive())
 	{
-		m_CurrentGameState = GameState::Loose;
+		OnGameLost();
 		return;
 	}
+}
+
+void Level::OnGameWon()
+{
+	m_GameEndedUI->Init(true);
+	m_CurrentGameState = GameState::GameEnded;
+}
+
+void Level::OnGameLost()
+{
+	m_GameEndedUI->Init(false);
+	m_CurrentGameState = GameState::GameEnded;
 }
 
 void Level::SpawnAsteroids()
@@ -139,25 +149,16 @@ void Level::OnDrawableObjectHit(const int damage, DrawableObject* hitObject, Dra
 	}
 }
 
-void Level::OnWin()
+void Level::OnGameEnded()
 {
-	std::cout << "Win\n";
-
-	m_CurrentGameState = GameState::MainMenu;
+	m_GameEndedUI->Update();
 	ClearLevel();
-}
-
-void Level::OnLoose()
-{
-	std::cout << "Loose\n";
-	
-	ClearLevel();
-	m_CurrentGameState = GameState::MainMenu;
 }
 
 void Level::ClearLevel()
 {
 	m_IsPlayerInDangerZone = false;
+	m_GlobalGameTimer = 0.f;
 	m_Player = new Spaceship();
 	for (auto DrawableObject : m_DrawableObjects)
 	{

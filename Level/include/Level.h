@@ -4,6 +4,7 @@
 #include "DangerZone.h"
 #include "MainMenuUI.h"
 #include "InGameUI.h"
+#include "GameEndedUI.h"
 
 #include <vector>
 #include <iostream>
@@ -12,8 +13,7 @@ enum class GameState : int
 {
 	MainMenu = -1,
 	InProgress = 0,
-	Win = 1,
-	Loose = 2
+	GameEnded = 1,
 };
 
 class Level
@@ -21,8 +21,10 @@ class Level
 private:
 	MainMenuUI* m_MainMenuUI = new MainMenuUI();
 	InGameUI* m_InGameUI = new InGameUI();
+	GameEndedUI* m_GameEndedUI = new GameEndedUI();
 
 	sf::RenderWindow* m_CurrentWindow{};
+	float m_GlobalGameTimer = 0.f;
 	float m_ZoneTimer = 0.f;
 	float m_TimeForAsteroids = 0.1f;
 	GameState m_CurrentGameState = GameState::MainMenu;
@@ -49,8 +51,7 @@ private:
 	void SpawnAsteroids();
 	void AdjustAsteroidsParameters();
 	void OnGameInMainMenu();
-	void OnWin();
-	void OnLoose();
+	void OnGameEnded();
 	void ClearLevel();
 
 public:
@@ -62,6 +63,8 @@ public:
 	void Draw();
 
 	void OnGameStarted();
+	void OnGameWon();
+	void OnGameLost();
 
 	void ZonePassed();
 	void OnDrawableObjectHit(const int damage, DrawableObject* hitObject, DrawableObject* hitCauser);
@@ -74,9 +77,7 @@ public:
 	GameState GetCurrentGameState() const { return m_CurrentGameState; }
 
 	float GetZoneTimer() const { return m_ZoneTimer; }
-	void UpdateZoneTimer(const float timer)
-	{ 
-		std::cout << m_ZoneTimer << std::endl;
-		m_ZoneTimer = timer; }
+	void UpdateZoneTimer(const float timer) { m_ZoneTimer = timer; }
+	float GetGlobalGameTime() const { return m_GlobalGameTimer; }
 
 };
