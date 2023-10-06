@@ -8,6 +8,7 @@ public:
 	static Application* s_Instance;
 
 	void Start();
+	void Stop();
 	static Application& Get();
 
 	sf::Time GetDeltaTime() const { return m_DeltaTime; }

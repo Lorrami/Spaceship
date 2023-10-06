@@ -30,6 +30,11 @@ void Application::Run()
     }
 }
 
+void Application::Stop()
+{
+    m_Window.close();
+}
+
 void Application::HandleEvents()
 {
     sf::Event event;

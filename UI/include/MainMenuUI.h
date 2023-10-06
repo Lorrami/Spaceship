@@ -10,9 +10,11 @@ public:
 	virtual void Update() override;
 
 private:
-	sf::Font m_Font{};
+	sf::Font* m_Font = nullptr;
 	sf::Text* m_PlayerScoreText = nullptr;
-	sf::RectangleShape m_StartButton = sf::RectangleShape();
+	sf::Text* m_WelcomeText = nullptr;
+	sf::Texture* m_StartButtonTexture = nullptr;
+	sf::RectangleShape* m_StartButton = new sf::RectangleShape();
 
 	bool CheckStartButton();
 };

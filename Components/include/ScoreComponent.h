@@ -3,9 +3,9 @@
 class ScoreComponent
 {
 public:
-	int GetScore() const;
+	int GetScore();
 	void AddScore(const int score);
 
 private:
-	int m_CurrentScore{};
+	int m_CurrentScore = 100;
 };

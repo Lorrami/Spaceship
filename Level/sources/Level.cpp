@@ -8,6 +8,7 @@
 
 Level::Level()
 {
+	m_Player = new Spaceship();
 	m_MainMenuUI = new MainMenuUI();
 }
 
@@ -44,7 +45,6 @@ void Level::OnGameInMainMenu()
 
 void Level::SpawnPlayer()
 {
-	m_Player = new Spaceship();
 	m_DrawableObjects.push_back(m_Player);
 }
 

@@ -1,6 +1,6 @@
 #include "ScoreComponent.h"
 
-int ScoreComponent::GetScore() const
+int ScoreComponent::GetScore()
 {
 	return m_CurrentScore;
 }
