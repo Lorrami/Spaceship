@@ -1,0 +1,393 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						9,
+						10,
+						11,
+						12,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "SFML",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML-Release-03f5c8620c6d0cfe5b83.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "SFML"
+				},
+				{
+					"build" : "SFML/src/SFML",
+					"childIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML.src.SFML-Release-f7950aada41e17e5c7a0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "SFML/src/SFML"
+				},
+				{
+					"build" : "SFML/src/SFML/System",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML.src.SFML.System-Release-c0dbc2b098039f42c290.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "SFML/src/SFML/System",
+					"targetIndexes" : 
+					[
+						10
+					]
+				},
+				{
+					"build" : "SFML/src/SFML/Main",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML.src.SFML.Main-Release-ccc4dce760e6bf1f582f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "SFML/src/SFML/Main",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "SFML/src/SFML/Window",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML.src.SFML.Window-Release-8982012c28478d254e7e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "SFML/src/SFML/Window",
+					"targetIndexes" : 
+					[
+						11
+					]
+				},
+				{
+					"build" : "SFML/src/SFML/Network",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML.src.SFML.Network-Release-ece1db5c73b65b537d12.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "SFML/src/SFML/Network",
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"build" : "SFML/src/SFML/Graphics",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML.src.SFML.Graphics-Release-4b9901bf7f85ef768004.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "SFML/src/SFML/Graphics",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"build" : "SFML/src/SFML/Audio",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-SFML.src.SFML.Audio-Release-3ab7169e17b170064baa.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "SFML/src/SFML/Audio",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "UI",
+					"jsonFile" : "directory-UI-Release-2fb30ecde3adcd6f7f99.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "UI",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "Components",
+					"jsonFile" : "directory-Components-Release-b1fb5d62f758c68fee50.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Components",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "GameProcess",
+					"jsonFile" : "directory-GameProcess-Release-d8d41f330d0c301cb93c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "GameProcess",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "Level",
+					"jsonFile" : "directory-Level-Release-d661e5d2b57fa40398ce.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Level",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "Application",
+					"jsonFile" : "directory-Application-Release-3f164fa072234d0a0467.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Application",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						9,
+						10,
+						11,
+						12,
+						13
+					],
+					"name" : "Spaceship",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					],
+					"name" : "SFML",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						6,
+						7,
+						8,
+						9,
+						10,
+						11
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 13,
+					"id" : "Application::@66720fd680612643f4de",
+					"jsonFile" : "target-Application-Release-388ef5158d4eafbac722.json",
+					"name" : "Application",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "Components::@cfa59656ef7ed4991838",
+					"jsonFile" : "target-Components-Release-b2856d59b65ccbcab54c.json",
+					"name" : "Components",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "GameProcess::@5ef34dd329d73edafaf4",
+					"jsonFile" : "target-GameProcess-Release-00e753a94eb61a782416.json",
+					"name" : "GameProcess",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "Level::@10b952da29547ba6244d",
+					"jsonFile" : "target-Level-Release-d86b507ad60df9577875.json",
+					"name" : "Level",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Spaceship::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Spaceship-Release-395a81adf8215e661f42.json",
+					"name" : "Spaceship",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "UI::@e824db2576db0fa939c2",
+					"jsonFile" : "target-UI-Release-b029a7bbb77b351e8dcb.json",
+					"name" : "UI",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "sfml-audio::@e9b1b5e9e6d4f50c4d9b",
+					"jsonFile" : "target-sfml-audio-Release-f024f0c756db67b32e17.json",
+					"name" : "sfml-audio",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "sfml-graphics::@b5d161fc85c1c0dd9373",
+					"jsonFile" : "target-sfml-graphics-Release-b7f148f329dabc2b847f.json",
+					"name" : "sfml-graphics",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "sfml-main::@c6bfd72d0b1e1f066d8b",
+					"jsonFile" : "target-sfml-main-Release-4fb9ebaebedb9ee70d23.json",
+					"name" : "sfml-main",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "sfml-network::@5e97341f5bcfe5d6b699",
+					"jsonFile" : "target-sfml-network-Release-c5293121accb9a1b5f44.json",
+					"name" : "sfml-network",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "sfml-system::@f1fd4bce49687b53ec1b",
+					"jsonFile" : "target-sfml-system-Release-3d799b13c0a1b8e8872c.json",
+					"name" : "sfml-system",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "sfml-window::@0daf25d7b5dd386fd904",
+					"jsonFile" : "target-sfml-window-Release-42da51837f90152eb5c6.json",
+					"name" : "sfml-window",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Projects/Spaceship/out/build/x64-release",
+		"source" : "C:/Projects/Spaceship"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
