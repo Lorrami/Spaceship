@@ -27,15 +27,15 @@ void DangerZone::CheckCollisionWithPlayer()
 	if (getGlobalBounds().contains(currentLevel->GetPlayer()->getPosition()))
 	{
 		m_IsPlayerInZone = true;
-		//std::cout << m_CurrentTime << std::endl;
-
 		m_CurrentTime -= Application::Get().GetDeltaTime().asSeconds();
+
+		currentLevel->UpdateZoneTimer(m_CurrentTime);
 		if (m_CurrentTime <= 0.f)
 		{
 			m_IsPlayerInZone = false;
+
 			currentLevel->ZonePassed();
 			currentLevel->Remove(this);
-			return;
 		}
 	}
 	else

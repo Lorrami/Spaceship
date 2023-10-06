@@ -23,6 +23,7 @@ private:
 	InGameUI* m_InGameUI = new InGameUI();
 
 	sf::RenderWindow* m_CurrentWindow{};
+	float m_ZoneTimer = 0.f;
 	float m_TimeForAsteroids = 0.1f;
 	GameState m_CurrentGameState = GameState::MainMenu;
 	int m_ZonesCount = 3;
@@ -68,7 +69,14 @@ public:
 	DrawableObject* GetPlayer() const { return m_Player; }
 	std::vector<DrawableObject*>& GetAllObjectsOnScreen() { return m_DrawableObjects; }
 	bool GetPlayerStateInDangerZone() const { return m_IsPlayerInDangerZone; }
+	void SetPlayerStateInDangerZone(const bool state) { m_IsPlayerInDangerZone = state; }
 
 	GameState GetCurrentGameState() const { return m_CurrentGameState; }
+
+	float GetZoneTimer() const { return m_ZoneTimer; }
+	void UpdateZoneTimer(const float timer)
+	{ 
+		std::cout << m_ZoneTimer << std::endl;
+		m_ZoneTimer = timer; }
 
 };

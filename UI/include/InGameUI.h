@@ -16,5 +16,10 @@ private:
 	sf::Text* m_Timer = nullptr;
 
 	void InitTexts();
+	void InitPlayerScore();
+	void InitPlayerHealth();
+	void InitTimer();
+	std::string FormatTimer(float time, int digits);
+	void UpdateTimer();
 
 };
