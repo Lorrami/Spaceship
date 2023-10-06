@@ -3,9 +3,11 @@
 class ScoreComponent
 {
 public:
-	int GetScore();
+	int GetEarnedScore();
+	int GetCurrentScore();
 	void AddScore(const int score);
 
 private:
-	int m_CurrentScore = 100;
+	int m_EarnderScore = 100;
+	int m_CurrentScore = 0;
 };

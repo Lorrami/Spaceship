@@ -69,7 +69,6 @@ public:
 	std::vector<DrawableObject*>& GetAllObjectsOnScreen() { return m_DrawableObjects; }
 	bool GetPlayerStateInDangerZone() const { return m_IsPlayerInDangerZone; }
 
-	int GetCurrentScore() const { return m_Player->PlayerScoreComponent.GetScore(); }
 	GameState GetCurrentGameState() const { return m_CurrentGameState; }
 
 };

@@ -1,6 +1,11 @@
 #include "ScoreComponent.h"
 
-int ScoreComponent::GetScore()
+int ScoreComponent::GetEarnedScore()
+{
+	return m_EarnderScore;
+}
+
+int ScoreComponent::GetCurrentScore()
 {
 	return m_CurrentScore;
 }

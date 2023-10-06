@@ -11,6 +11,11 @@ int HealthComponent::GetMaxHealth() const
 	return m_MaxHealth;
 }
 
+int HealthComponent::GetCurrentHealth() const
+{
+	return m_CurrentHealth;
+}
+
 bool HealthComponent::IsAlive() const
 {
 	return m_CurrentHealth > 0;

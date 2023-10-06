@@ -16,7 +16,7 @@ void MainMenuUI::InitTexts()
 {
 	if (m_Font->loadFromFile("../../../Resources/Text1.ttf"))
 	{
-		m_PlayerScoreText = new sf::Text(*m_Font, "Score: " + std::to_string(Application::Get().GetCurrentLevel().GetCurrentScore()));
+		m_PlayerScoreText = new sf::Text(*m_Font, "Score: " + std::to_string(dynamic_cast<Spaceship*>(Application::Get().GetCurrentLevel().GetPlayer())->PlayerScoreComponent.GetEarnedScore()));
 		m_PlayerScoreText->setPosition(sf::Vector2f(10.f, 10.f));
 
 		m_WelcomeText = new sf::Text(*m_Font, "Welcome  to\n  SPACESHIP");

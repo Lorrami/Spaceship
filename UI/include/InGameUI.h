@@ -9,4 +9,12 @@ public:
 
 	virtual void Update() override;
 
+private:
+	sf::Font* m_Font = new sf::Font();
+	sf::Text* m_PlayerScoreText = nullptr;
+	sf::Text* m_PlayerHealthText = nullptr;
+	sf::Text* m_Timer = nullptr;
+
+	void InitTexts();
+
 };
