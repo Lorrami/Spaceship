@@ -6,10 +6,11 @@ class Asteroid : public MovableObject
 {
 public:
 	Asteroid(const float speed, const float bodySize);
-
+	void Init();
 	virtual void Update() override;
 
 private:
+	sf::Texture* m_Texture = new sf::Texture();
 	sf::Vector2f m_Direction{};
 	float m_Speed{};
 	float m_RotationCoef = 1.f;

@@ -85,7 +85,9 @@ void Spaceship::ShootProjectile()
 {
 	float dx = Application::Get().GetMouseRelativeLocation().x - getPosition().x;
 	float dy = Application::Get().GetMouseRelativeLocation().y - getPosition().y;
-	Application::Get().GetCurrentLevel().Add(new Bullet(getPosition(), sf::Vector2f(dx, dy)));
+	Bullet* bullet = new Bullet(getPosition(), sf::Vector2f(dx, dy));
+	bullet->Init();
+	Application::Get().GetCurrentLevel().Add(bullet);
 }
 
 void Spaceship::UpdateRotation()

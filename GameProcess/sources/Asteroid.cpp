@@ -14,6 +14,14 @@ Asteroid::Asteroid(const float speed, const float bodySize)
 	m_Direction = CalculateDirection();
 }
 
+void Asteroid::Init()
+{
+	if (m_Texture->loadFromFile("../../../Resources/Asteroid.png"))
+	{
+		setTexture(m_Texture);
+	}
+}
+
 sf::Vector2f& Asteroid::CalculateDirection()
 {
 	if (Application::Get().GetCurrentLevel().GetPlayerStateInDangerZone())
