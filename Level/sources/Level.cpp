@@ -143,6 +143,7 @@ void Level::OnWin()
 {
 	std::cout << "Win\n";
 
+	m_CurrentGameState = GameState::MainMenu;
 	ClearLevel();
 }
 
