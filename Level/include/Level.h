@@ -3,6 +3,7 @@
 #include "Spaceship.h"
 #include "DangerZone.h"
 #include "MainMenuUI.h"
+#include "InGameUI.h"
 
 #include <vector>
 #include <iostream>
@@ -19,6 +20,8 @@ class Level
 {
 private:
 	MainMenuUI* m_MainMenuUI = new MainMenuUI();
+	InGameUI* m_InGameUI = new InGameUI();
+
 	sf::RenderWindow* m_CurrentWindow{};
 	float m_TimeForAsteroids = 0.1f;
 	GameState m_CurrentGameState = GameState::MainMenu;

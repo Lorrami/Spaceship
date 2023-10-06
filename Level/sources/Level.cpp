@@ -9,7 +9,7 @@
 void Level::Init()
 {
 	m_Player = new Spaceship();
-	m_MainMenuUI->Init();;
+	m_MainMenuUI->Init();
 }
 
 void Level::UpdateGameState()
@@ -36,6 +36,7 @@ void Level::OnGameStarted()
 	SpawnDangerZones();
 	SpawnPlayer();
 	m_CurrentGameState = GameState::InProgress;
+	m_InGameUI->Init();
 }
 
 void Level::OnGameInMainMenu()
@@ -60,6 +61,7 @@ void Level::OnGameInProgress()
 	SpawnAsteroids();
 	CheckWinLooseConditions();
 	Draw();
+	m_InGameUI->Update();
 }
 
 void Level::CheckWinLooseConditions()
@@ -149,12 +151,13 @@ void Level::OnLoose()
 	std::cout << "Loose\n";
 	
 	ClearLevel();
-	m_MainMenuUI->Update();
+	m_CurrentGameState = GameState::MainMenu;
 }
 
 void Level::ClearLevel()
 {
 	m_IsPlayerInDangerZone = false;
+	m_Player = new Spaceship();
 	for (auto DrawableObject : m_DrawableObjects)
 	{
 		Remove(DrawableObject);
