@@ -81,14 +81,22 @@ void Level::CheckWinLooseConditions()
 
 void Level::OnGameWon()
 {
+	m_Player->PlayerScoreComponent.SaveScore();
 	m_GameEndedUI->Init(true);
 	m_CurrentGameState = GameState::GameEnded;
 }
 
 void Level::OnGameLost()
 {
+	m_Player->PlayerScoreComponent.AddScore(-m_Player->PlayerScoreComponent.GetCurrentScore());
 	m_GameEndedUI->Init(false);
 	m_CurrentGameState = GameState::GameEnded;
+}
+
+void Level::OnGameEnded()
+{
+	m_GameEndedUI->Update();
+	ClearLevel();
 }
 
 void Level::SpawnAsteroids()
@@ -153,17 +161,10 @@ void Level::OnDrawableObjectHit(const int damage, DrawableObject* hitObject, Dra
 	}
 }
 
-void Level::OnGameEnded()
-{
-	m_GameEndedUI->Update();
-	ClearLevel();
-}
-
 void Level::ClearLevel()
 {
 	m_IsPlayerInDangerZone = false;
 	m_GlobalGameTimer = 0.f;
-	m_Player = new Spaceship();
 	for (auto DrawableObject : m_DrawableObjects)
 	{
 		Remove(DrawableObject);

@@ -2,8 +2,6 @@
 
 #include "Application.h"
 
-#include <iostream>
-
 DangerZone::DangerZone(float zoneTime, float zoneRadius, const sf::Vector2f& zonePosition, const sf::Color& zoneColor)
 {
 	m_ZoneTime = zoneTime;

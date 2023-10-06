@@ -3,8 +3,6 @@
 #include "Application.h"
 #include "Bullet.h"
 
-#include <iostream>
-
 Asteroid::Asteroid(const float speed, const float bodySize)
 {
 	m_Speed = speed;

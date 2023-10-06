@@ -3,8 +3,6 @@
 #include "Bullet.h"
 #include "Application.h"
 
-#include <iostream>
-
 Spaceship::Spaceship()
 {
 	setOrigin(sf::Vector2f(m_BodySize.x / 2, m_BodySize.y / 2));
